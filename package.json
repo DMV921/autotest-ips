@@ -18,5 +18,9 @@
     "scripts": {
         "wdio": "wdio run src/wdio.conf.ts",
         "ts-build": "tsc --build"
+    },
+    "dependencies": {
+        "prompt": "^1.3.0",
+        "prompt-sync": "^4.2.0"
     }
 }
