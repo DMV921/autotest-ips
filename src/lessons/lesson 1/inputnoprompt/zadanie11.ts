@@ -23,4 +23,16 @@
 
 */
 
+{
+    const prompt = require("prompt-sync")({ sigint: true });
+    const a = Number(prompt('Введите 1 число ', ''));
+    const b = Number(prompt('Введите 2 число ', ''));
+    const сallback = (a: number, b: number) => a + b
 
+    function calc(callback: Function, a: number, b: number) {
+        return callback(a, b);
+    }
+
+
+    console.log(calc(callback, ))
+}
