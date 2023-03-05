@@ -1,6 +1,6 @@
 {
     const prompt = require("prompt-sync")({ sigint: true });
-    let temperature: any = prompt('Введите температуру', '')
+    let temperature: any = prompt('Введите температуру ', '')
 
     if (temperature < -10) {
         console.log('Очень холодно')
