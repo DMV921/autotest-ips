@@ -1,6 +1,6 @@
 {
     const prompt = require("prompt-sync")({ sigint: true });
-    let agev: any = prompt('Введите возраст ', '')
+    let agev = prompt('Введите возраст ', '')
     var ageverification = function (age: number) {
         if (age >= 18)
             console.log('Страница доступна')
