@@ -60,3 +60,14 @@ arrayStudents.forEach(names => console.log(output(names)))
 
 
 }
+
+/*
+{
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('resolve')
+        }, 1000)
+    })
+    promise.then(resolve => console.log(promise))
+}
+*/

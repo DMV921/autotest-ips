@@ -4,8 +4,7 @@
         age: number
     }
 
-    const arrayStudents = [
-
+    const students: Students[] = [
         {
             name: 'Petr',
             age: 18,
@@ -25,19 +24,7 @@
             name: 'Masha',
             age: 21,
         }
-
     ]
-    interface arrayStudents {
-        name: string;
-        age: number;
-        
-      }
-    console.log(arrayStudents)
 
-   // function output(arrayStudents: Students): string {
- //       return `${arrayStudents.name}`
- //   }
-
-  //  console.log(output(arrayStudents.name))
-
+    students.forEach(student => console.log(`${student.name}, ${student.age}`))
 }

@@ -1,29 +1,33 @@
 {
     class Car {
-        engindeStatus: boolean = false
-        speed: number = 0
-        trunOn() {
-            this.engindeStatus = true
-            console.log(`Двигатель включился ${this.engindeStatus}`)
-        }
-        trunOff() {
+        private engindeStatus: boolean
+        private speed: number 
+
+        constructor() {
             this.engindeStatus = false
-            console.log(`Двигатель выключился ${this.engindeStatus}`)
+            this.speed = 0
         }
-        getState() {
+        public trunOn() {
+            this.engindeStatus = true
+        }
+        public trunOff() {
+            this.engindeStatus = false
+        }
+        public getState() {
             console.log(`Работа двигателя ${this.engindeStatus}`)
+            console.log('Текущая скорость', this.speed)
         }
-        setSpeed(speed: number) {
-            if (this.engindeStatus) {
-                if (speed >= 0 && speed <= 100) {
-                    this.speed = speed;
-                    console.log('Текущая скорость', this.speed)
-                }
-                else
-                    console.log('Недопустимая скорость')
-            }
-            else
+        public setSpeed(speed: number): void {
+            if (!this.engindeStatus) {
                 console.log('Двигатель заглушен')
+                return
+            }
+
+            if (speed >= 0 && speed <= 100) {
+                this.speed = speed;
+            } else {
+                console.log('Недопустимая скорость')
+            }
         }
     }
     const car: Car = new Car()
