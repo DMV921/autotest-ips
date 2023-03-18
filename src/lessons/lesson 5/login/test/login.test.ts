@@ -30,14 +30,12 @@ describe('Login from', () => {
 
     it('Error message should be displayed by login with wrong email', async () => {
         await loginPage.login(badEmail, PASSWORD) 
-        expect(await loginPage.errorMessege()).toEqual(true)
+        expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
     })
 
     it('Error message should be displayed by login with wrong password', async () => {
         await loginPage.login(LOGIN, badPassword)
-
-        await loginPage.errorMessege()
-        expect(await loginPage.errorMessege()).toEqual(true)
+        expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
     })
 
     afterEach(async () => {

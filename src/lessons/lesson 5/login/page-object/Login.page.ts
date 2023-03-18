@@ -16,11 +16,8 @@ class LoginPage {
         await this.getLoginButton().click()
     }
 
-    public async errorMessege(): Promise<void> {
-        await this.getErrorMessege().waitForDisplayed({
-            timeoutMsg: 'Error messege was not displayed',
-        })
-       await this.getErrorMessege().isDisplayed()
+    public errorMessegeisDisplayed(): Promise<boolean> {  
+       return this.getErrorMessege().isDisplayed()
     }
 
     public async open(): Promise<void> {
