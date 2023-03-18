@@ -1,7 +1,7 @@
 
 import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential'
+import { EmailsSettingsPage } from '../page-object/EmailsSettings.page'
 import { LoginPage } from '../page-object/Login.page'
-import { MainPage } from "../page-object/Main.page"
 import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
 
 const nameField: string = 'Дмитрий'
@@ -15,17 +15,19 @@ const longBioField: string ='Lorem ipsum dolor sit amet, consectetuer adipiscing
 
 describe('Profile settings test', () => {
     let loginPage: LoginPage
-    let mainPage: MainPage
     let profileSettingsPage: ProfileSettingsPage
+    let emailsSettingsPage: EmailsSettingsPage
     const filePath = 'src/files/placeimg_640_480_any.jpg'
     const filePathBigSize = 'src/files/photo_visokogo_razresheniya.jpg'
     
     before(async () => {
         loginPage = new LoginPage(browser)
-        mainPage = new MainPage(browser)
         profileSettingsPage = new ProfileSettingsPage(browser)
+        emailsSettingsPage = new EmailsSettingsPage(browser)
         await loginPage.open()
         await loginPage.login(LOGIN, PASSWORD)
+        await emailsSettingsPage.openEmailsSettingsPage()
+        await emailsSettingsPage.checkBox()
     })
 
     beforeEach(async () => {
@@ -34,7 +36,6 @@ describe('Profile settings test', () => {
 
     it('Name of user saved into name field', async () => {
         await profileSettingsPage.nameField(nameField)
-        //await profileSettingsPage.clicknameField()
         expect(await profileSettingsPage.getUserNameText()).toEqual(nameField)
     })
 
@@ -65,7 +66,6 @@ describe('Profile settings test', () => {
     //NEGATIVE
     it('A message about the long name will appear', async () => {
         await profileSettingsPage.nameField(longNameField)
-    
         expect(await profileSettingsPage.messegeLongName()).toEqual(true)
         expect(await profileSettingsPage.getUserNameText()).toEqual(nameField)
     })
@@ -75,7 +75,7 @@ describe('Profile settings test', () => {
         expect(await profileSettingsPage.getBioLength()).toHaveLength(160)
     })
 
-    it.only('The message "Please upload a picture smaller than 1 MB" should appear.', async () => {
+    it('The message "Please upload a picture smaller than 1 MB" should appear.', async () => {
         await profileSettingsPage.uploadBigSizeFile(filePathBigSize)
         expect(await profileSettingsPage.messegeTooBig()).toEqual(true)
     })

@@ -40,6 +40,5 @@ describe('Login from', () => {
 
     afterEach(async () => {
         await browser.reloadSession()
-
     })
 })
