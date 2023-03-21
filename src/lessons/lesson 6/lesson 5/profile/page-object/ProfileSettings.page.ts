@@ -1,12 +1,8 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { LOGIN, EMAIL, PASSWORD } from '../../../credential'
-
-
-
 
 class ProfileSettingsPage {
     protected browser: WebdriverIO.Browser
-    protected url = 'https://github.com/settings/emails'
+    protected url = 'https://github.com/settings/profile'
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
@@ -121,54 +117,37 @@ class ProfileSettingsPage {
     private getNameField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="user_profile_name"]')
     }
-
-
-    public async uploadBigSizeFie(): Promise<void> {
-
-        if  (await (!this.getCheckbox().isSelected())) {
-
-            await this.getCheckbox().waitForClickable({
-                timeoutMsg: 'Checkbox "Keep my email addresses private" was not clickable',
-            })
-            await this.getCheckbox().click()
-        }
+    private getBioField(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="user_profile_bio"]')
     }
-
-    public notSelected(): Promise<boolean> {
-        return this.getCheckbox().isSelected()
+    private getProfileEmailList(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="user_profile_email"]')
     }
-
-    public getCheckbox(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="toggle_visibility"]')
+    private getPronouns(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="user_profile_pronouns_select"]')
+    }
+    private getPronounsCustom(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="user_profile_pronouns"]')
+    }
+    private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('[type="file"]')
+    }
+    private getInputFileSetButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="avatar-crop-form"]/div[2]/button/span')
+    }
+    private getAvatarsrc(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/div/details/summary/img')
+    }
+    private getMessegeLongName(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="js-flash-container"]/div/div/div')
+    }
+    private getMessegeTooBig(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/form/file-attachment/div/div[2]')
+    }
+    private getUpdateProfileButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="edit_user_104264067"]/div/p[2]/button')
     }
 }
-
-describe('Profile settings test', () => {
-
-    let profileSettingsPage: ProfileSettingsPage
-    const filePath = 'src/files/placeimg_640_480_any.jpg'
-    const filePathBigSize = 'src/files/photo_visokogo_razresheniya.jpg'
-
-    before(async () => {
-
-        profileSettingsPage = new ProfileSettingsPage(browser)
-        await profileSettingsPage.openProfilePage()
-        await browser.$('//*[@id="login_field"]').setValue(LOGIN)
-        await browser.$('//*[@id="password"]').setValue(PASSWORD)
-        await browser.$('//*[@type="submit"]').waitForClickable({
-            timeoutMsg: 'Login button was not clickable'
-        })
-        await browser.$('//*[@type="submit"]').click()
-    })
-
-    beforeEach(async () => {
-        await profileSettingsPage.openProfilePage()
-    })
-
-    it('Name of user saved into name field', async () => {
-
-        await profileSettingsPage.uploadBigSizeFie()
-
-    })
-
-})
+export {
+    ProfileSettingsPage,
+}

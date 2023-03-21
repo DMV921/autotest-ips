@@ -8,7 +8,7 @@ class EmailsSettingsPage {
         this.browser = browser
     }
     //Keep my email addresses private
-    public async checkcheckBox(): Promise<void> {
+    public async checkBox(): Promise<void> {
         if (await this.getCheckbox().isSelected()) {
             await this.getCheckbox().waitForClickable({
                 timeoutMsg: 'Checkbox "Keep my email addresses private" was not clickable',

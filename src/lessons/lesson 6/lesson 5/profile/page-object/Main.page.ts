@@ -1,8 +1,8 @@
 import { ChainablePromiseElement } from 'webdriverio'
 
 class MainPage {
-    private browser: WebdriverIO.Browser
-    private url = 'https://github.com/login'
+    protected browser: WebdriverIO.Browser
+    protected url = 'https://github.com/login'
     
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser

@@ -1,7 +1,9 @@
 
 import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential'
 import { LoginPage } from '../page-object/Login.page'
-import { MainPage } from "../../profile/page-object/Main.page"
+import { MainPage } from "../page-object/Main.page"
+
+import как credential
 const badEmail: string = 'fefefe'
 const badPassword: string = '1'
 
