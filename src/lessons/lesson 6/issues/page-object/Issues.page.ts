@@ -165,13 +165,62 @@ class IssuesPage {
         return this.getOcticon().isDisplayed()
     }
 
+//Add pictute
+public async addPictureEditTask(filePath: string): Promise<void> {
+    // await this.getTaskEdit().click()
+    await this.getEditTaskMenu().click()
+    // await this.showHiddenEdit(this.browser)
+    await this.getEditButton().click()
+    const file: string = await this.browser.uploadFile(filePath)
+    await this.getInputFile().setValue(file)
+   // await this.getEditField().setValue(testtask)
+   await browser.pause(10000)
+   
+   await this.getUpdateComment().click()
+
+    await this.getUpdateCommentField().waitForDisplayed({
+        timeoutMsg: 'Edit task was not displayed',
+    })
+
+    await this.getIMG().waitForDisplayed({
+        timeoutMsg: 'Edit task was not displayed',
+    })
+
+}
+
+
+public getImage(): Promise<boolean> {
+
+    return this.getIMG().isDisplayed()
+}
+
+
+public async uploadFile(filePath: string): Promise<void> {
+    await this.getInputFile().waitForExist({
+        timeoutMsg: 'File input field was not exist',
+    })
+    const file: string = await this.browser.uploadFile(filePath)
+    await this.getInputFile().setValue(file)
+}
+
+
+
 
     public async openCreateNewRepositoryPage(): Promise<void> {
         await this.browser.url(this.url)
     }
 
+    private getIMG(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//img[@alt="placeimg_640_480_any"]')
+    }
+
+    
 
     //div[@class="TimelineItem-badge color-fg-on-emphasis color-bg-emphasis"]//*[name()="path"]
+
+    private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('[type="file"]')
+    }
 
     private getDocumentationLabelInList(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('*//span/a[@data-name="documentation"]')

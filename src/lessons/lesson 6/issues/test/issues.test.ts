@@ -27,6 +27,7 @@ const closeTask: string = 'Close Task'
 const taskLabel1: string = 'Task Label 1'
 const taskDelete: string = 'Task Delete'
 const taskBlockComment: string = 'Task Block Comment'
+const taskAddPicture: string = 'Task add picrure'
 
 describe('Issues test', () => {
     let loginPage: LoginPage
@@ -96,6 +97,17 @@ describe('Issues test', () => {
         expect(await issuesPage.getMessegeAboutSuccessDelete1()).toEqual(true)
     })
 
+    it('Picture should be add in task', async () => {
+        await issuesPage.createIssue(taskAddPicture)
+
+        // await issuesPage.addPictureEditTask(testTask)
+        //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
+        await issuesPage.addPictureEditTask(filePath)
+        expect(await issuesPage.getImage()).toEqual(true)
+    })
+
+
+
     it('Commentary should be blocked', async () => {
         await issuesPage.createIssue(taskBlockComment)
         await issuesPage.blockCommentTask()
@@ -104,6 +116,9 @@ describe('Issues test', () => {
         await issuesPage.openIssueUnlogin()
         expect(await issuesPage.getBlockLogo()).toEqual(true)
     })
+
+
+
 
 
 
