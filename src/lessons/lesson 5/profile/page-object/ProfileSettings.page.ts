@@ -25,7 +25,7 @@ class ProfileSettingsPage {
             timeoutMsg: 'Bio field was not displayed',
         })
         await this.getBioField().setValue(userBio)
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
 
     public getUserBioText(): Promise<string> {
@@ -37,7 +37,7 @@ class ProfileSettingsPage {
             timeoutMsg: 'Email list was not clickable',
         })
         await this.getProfileEmailList().selectByIndex(1)
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
 
     public getCustomUserPronouns(): Promise<string> {
@@ -73,7 +73,7 @@ class ProfileSettingsPage {
         })
         await this.getPronouns().selectByIndex(4)
         await this.getPronounsCustom().setValue(userCustomPronouns)
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
 
     public async uploadBigSizeFile(filePath: string): Promise<void> {
@@ -99,7 +99,7 @@ class ProfileSettingsPage {
             timeoutMsg: 'Set new profile picture button was not clickable',
         })
         await this.getInputFileSetButton().click()
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
 //дописать функцию button click с wait
     public async updateNameField(userName: string): Promise<void> {
@@ -107,7 +107,7 @@ class ProfileSettingsPage {
             timeoutMsg: 'Name field was not displayed',
         })
         await this.getNameField().setValue(userName)
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
 
     public async updatePronounsList(): Promise<void> {
@@ -115,12 +115,20 @@ class ProfileSettingsPage {
             timeoutMsg: 'Pronouns list was not clickable',
         })
         await this.getPronouns().selectByIndex(1)
-        await this.getUpdateProfileButton().click()
+        await this.clickUpdateProfileButton()
     }
     
     public getUserPronouns(): Promise<string> {
         return this.getPronouns().getValue()
     }
+
+    public async clickUpdateProfileButton(): Promise<void> {
+        await this.getUpdateProfileButton().waitForDisplayed({
+            timeoutMsg: 'Update profile button was not displayed',
+        })
+        await this.getUpdateProfileButton().click()
+    }
+
 
     private getAvatarsrc(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/div/details/summary/img')
