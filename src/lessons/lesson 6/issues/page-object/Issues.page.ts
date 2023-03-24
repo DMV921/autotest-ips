@@ -1,6 +1,11 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { RepositoryModel } from '../model/repository.model'
 
+import { createIssuesModel, IssuesModel } from '../model/issues.model'
+import { issuesData } from '../data/issues.data'
+
+
+
 class IssuesPage {
     protected browser: WebdriverIO.Browser
     protected url = 'https://github.com/dDAdada111/Test/issues'
@@ -20,10 +25,10 @@ class IssuesPage {
         })
         await this.getNewIssueButton().click()
     }
-    //create
-    public async createIssue(task: string): Promise<void> {
+    //create одна задача с тем именем которое передали в задаче
+    public async createIssue(issues:string): Promise<void> {
         await this.clickNewIssueButton()
-        await this.getIssueTitleField().setValue(task)
+        await this.getIssueTitleField().setValue(issues)
 
         await this.getSubmitNewIssueButton().waitForClickable({
             timeoutMsg: 'Submit new issue button was not clickable',
@@ -35,12 +40,12 @@ class IssuesPage {
         return this.getIssueTitle().getText()
     }
     //commentaryowner
-    public async editTask(testtask: string): Promise<void> {
+    public async editTask(issues: IssuesModel): Promise<void> {
         // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
         // await this.showHiddenEdit(this.browser)
         await this.getEditButton().click()
-        await this.getEditField().setValue(testtask)
+        await this.getEditField().setValue(issues.testTask)
         await this.getUpdateComment().click()
 
         await this.getUpdateCommentField().waitForDisplayed({
@@ -58,8 +63,8 @@ class IssuesPage {
 
 
     //commentary
-    public async createCommentary(comment: string): Promise<void> {
-        await this.getCommentaryField().setValue(comment)
+    public async createCommentary(issues: IssuesModel): Promise<void> {
+        await this.getCommentaryField().setValue(issues.taskCommentary)
         await this.getCommentButton().click()
     }
 
@@ -333,10 +338,10 @@ public async uploadFile(filePath: string): Promise<void> {
         return this.browser.$('//summary/*[@class="Button-content"]//*[name()="svg"]')
     }
     private getNewIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="repo-content-pjax-container"]/div/div[2]/div[2]/a')
+        return this.browser.$('//span[@class="d-none d-md-block"]')
     }
 
-
+//*[@id="repo-content-pjax-container"]/div/div[2]/div[2]/a
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('*//details-menu/button[2]')
     }
