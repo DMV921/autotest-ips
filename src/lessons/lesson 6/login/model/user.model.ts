@@ -1,6 +1,6 @@
 import { UserData } from "../data/user.data"
 
-export type UserModel = {
+ type UserModel = {
     
     login: string
     password: string
@@ -17,7 +17,7 @@ export type UserModel = {
     filePathBigSize: string
 }
 
-export function createUserModel(data: UserData): UserModel {
+ function createUserModel(data: UserData): UserModel {
     return {  
        
         login: data.login,
@@ -37,3 +37,6 @@ export function createUserModel(data: UserData): UserModel {
 }
 
 
+export {
+    UserData, UserModel, createUserModel
+}
