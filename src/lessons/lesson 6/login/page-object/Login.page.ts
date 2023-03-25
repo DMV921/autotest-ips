@@ -2,8 +2,8 @@ import { ChainablePromiseElement } from 'webdriverio'
 import { UserModel } from '../model/user.model'
 
 class LoginPage {
-    private browser: WebdriverIO.Browser
-    private url = 'https://github.com/login'
+    protected browser: WebdriverIO.Browser
+    protected url = 'https://github.com/login'
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser

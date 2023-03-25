@@ -1,4 +1,5 @@
 import { ChainablePromiseElement } from 'webdriverio'
+import { UserModel } from '../../login/model/user.model'
 
 class ProfileSettingsPage {
     protected browser: WebdriverIO.Browser
@@ -9,8 +10,8 @@ class ProfileSettingsPage {
     }
     
     public async clickUpdateProfileButton(): Promise<void> {
-        await this.getUpdateProfileButton().waitForDisplayed({
-            timeoutMsg: 'Update profile button was not displayed',
+        await this.getUpdateProfileButton().waitForClickable({
+            timeoutMsg: 'Update profile button was not clickable'
         })
         await this.getUpdateProfileButton().click()
     }
@@ -62,20 +63,24 @@ class ProfileSettingsPage {
         })
     }
 
-    public async updateBioField(userBio: string): Promise<void> {
+    public async updateBioField(userBio: UserModel): Promise<void> {
+        await this.setValueBioField(userBio.bioField)
+        await this.clickUpdateProfileButton()
+    }
+
+    public async setValueBioField(userBio: string): Promise<void> {
         await this.getBioField().waitForDisplayed({
             timeoutMsg: 'Bio field was not displayed',
         })
         await this.getBioField().setValue(userBio)
-        await this.clickUpdateProfileButton()
     }
-
-    public async updateCustomPronounsList(userCustomPronouns: string): Promise<void> {
+    
+    public async updateCustomPronounsList(userCustomPronouns: UserModel): Promise<void> {
         await this.getPronouns().waitForClickable({
             timeoutMsg: 'Pronouns list was not clickable',
         })
         await this.getPronouns().selectByIndex(4)
-        await this.getPronounsCustom().setValue(userCustomPronouns)
+        await this.getPronounsCustom().setValue(userCustomPronouns.customPronouns)
         await this.clickUpdateProfileButton()
     }
     
@@ -86,14 +91,20 @@ class ProfileSettingsPage {
         await this.getProfileEmailList().selectByIndex(1)
         await this.clickUpdateProfileButton()
     }
-
 //дописать функцию button click с wait
-    public async updateNameField(userName: string): Promise<void> {
+    public async updateNameField(userName: UserModel): Promise<void> {
+        await this.getNameField().waitForDisplayed({
+            timeoutMsg: 'Name field was not displayed',
+        })
+        await this.getNameField().setValue(userName.nameField)
+        await this.clickUpdateProfileButton()
+    }
+
+    public async setValueNameField(userName: string): Promise<void> {
         await this.getNameField().waitForDisplayed({
             timeoutMsg: 'Name field was not displayed',
         })
         await this.getNameField().setValue(userName)
-        await this.clickUpdateProfileButton()
     }
 
     public async updatePronounsList(): Promise<void> {
@@ -104,24 +115,24 @@ class ProfileSettingsPage {
         await this.clickUpdateProfileButton()
     }
     
-    public async uploadBigSizeFile(filePath: string): Promise<void> {
+    public async uploadBigSizeFile(filePath: UserModel): Promise<void> {
         await this.getInputFile().waitForExist({
             timeoutMsg: 'File input field was not exist',
         })
         await this.showHiddenFileInput(this.browser)
-        const file: string = await this.browser.uploadFile(filePath)
+        const file: string = await this.browser.uploadFile(filePath.filePathBigSize)
         await this.getInputFile().setValue(file)
         await this.getMessegeTooBig().waitForDisplayed({
             timeoutMsg: 'The message "Please upload a picture smaller than 1 MB" was not displayed',
         })
     }
 
-    public async uploadFile(filePath: string): Promise<void> {
+    public async uploadFile(filePath: UserModel): Promise<void> {
         await this.getInputFile().waitForExist({
             timeoutMsg: 'File input field was not exist',
         })
         await this.showHiddenFileInput(this.browser)
-        const file: string = await this.browser.uploadFile(filePath)
+        const file: string = await this.browser.uploadFile(filePath.filePath)
         await this.getInputFile().setValue(file)
         await this.getInputFileSetButton().waitForClickable({
             timeoutMsg: 'Set new profile picture button was not clickable',
@@ -171,7 +182,7 @@ class ProfileSettingsPage {
     }
 
     private getUpdateProfileButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="edit_user_104264067"]/div/p[2]/button')
+        return this.browser.$('//span[@class="Button-label"]')
     }
 }
 

@@ -4,39 +4,35 @@ import { RepositoryModel } from '../model/repository.model'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
 import { issuesData } from '../data/issues.data'
 
-
-
 class IssuesPage {
     protected browser: WebdriverIO.Browser
     protected url = 'https://github.com/dDAdada111/Test/issues'
 
-
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
     }
+    //Add pictute
+    public async addPictureEditTask(filePath: string): Promise<void> {
+        // await this.getTaskEdit().click()
+        await this.getEditTaskMenu().click()
+        // await this.showHiddenEdit(this.browser)
+        await this.getEditButton().click()
+        const file: string = await this.browser.uploadFile(filePath)
+        await this.getInputFile().setValue(file)
+        // await this.getEditField().setValue(testtask)
+        await browser.pause(10000)
 
-//Add pictute
-public async addPictureEditTask(filePath: string): Promise<void> {
-    // await this.getTaskEdit().click()
-    await this.getEditTaskMenu().click()
-    // await this.showHiddenEdit(this.browser)
-    await this.getEditButton().click()
-    const file: string = await this.browser.uploadFile(filePath)
-    await this.getInputFile().setValue(file)
-   // await this.getEditField().setValue(testtask)
-   await browser.pause(10000)
+        await this.getUpdateComment().click()
 
-   await this.getUpdateComment().click()
+        await this.getUpdateCommentField().waitForDisplayed({
+            timeoutMsg: 'Edit task was not displayed',
+        })
 
-    await this.getUpdateCommentField().waitForDisplayed({
-        timeoutMsg: 'Edit task was not displayed',
-    })
+        await this.getIMG().waitForDisplayed({
+            timeoutMsg: 'Edit task was not displayed',
+        })
 
-    await this.getIMG().waitForDisplayed({
-        timeoutMsg: 'Edit task was not displayed',
-    })
-
-}
+    }
 
     public async blockCommentTask(): Promise<void> {
         await this.getLockConversation().click()
@@ -84,7 +80,7 @@ public async addPictureEditTask(filePath: string): Promise<void> {
         await this.getCommentButton().click()
     }
     //create одна задача с тем именем которое передали в задаче
-    public async createIssue(issues:string): Promise<void> {
+    public async createIssue(issues: string): Promise<void> {
         await this.clickNewIssueButton()
         await this.getIssueTitleField().setValue(issues)
 
@@ -154,10 +150,10 @@ public async addPictureEditTask(filePath: string): Promise<void> {
 
     //block comment
 
-public getImage(): Promise<boolean> {
+    public getImage(): Promise<boolean> {
 
-    return this.getIMG().isDisplayed()
-}
+        return this.getIMG().isDisplayed()
+    }
 
     public getMessegeAboutSuccessDelete1(): Promise<boolean> {
 
@@ -189,19 +185,19 @@ public getImage(): Promise<boolean> {
         await this.browser.url(this.url)
     }
 
-public async uploadFile(filePath: string): Promise<void> {
-    await this.getInputFile().waitForExist({
-        timeoutMsg: 'File input field was not exist',
-    })
-    const file: string = await this.browser.uploadFile(filePath)
-    await this.getInputFile().setValue(file)
-}
+    public async uploadFile(filePath: string): Promise<void> {
+        await this.getInputFile().waitForExist({
+            timeoutMsg: 'File input field was not exist',
+        })
+        const file: string = await this.browser.uploadFile(filePath)
+        await this.getInputFile().setValue(file)
+    }
 
     private confirmDeleteButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//button[@name="verify_delete"]')
     }
 
-    
+
 
     //div[@class="TimelineItem-badge color-fg-on-emphasis color-bg-emphasis"]//*[name()="path"]
 
@@ -245,7 +241,7 @@ public async uploadFile(filePath: string): Promise<void> {
         return this.browser.$('*//span/a[@data-name="documentation"]')
     }
 
-//*[@id="repo-content-pjax-container"]/div/div[2]/div[2]/a
+    //*[@id="repo-content-pjax-container"]/div/div[2]/div[2]/a
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('*//details-menu/button[2]')
     }
@@ -267,12 +263,12 @@ public async uploadFile(filePath: string): Promise<void> {
     private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('[type="file"]')
     }
-//div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]
+    //div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]
 
     private getIssueTitle(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')
     }
-//*[@id="partial-new-comment-form-actions"]/div/div[1]/close-reason-selector/div/button
+    //*[@id="partial-new-comment-form-actions"]/div/div[1]/close-reason-selector/div/button
 
     private getIssueTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="issue_title"]')
