@@ -8,10 +8,13 @@ type IssuesData = {
     taskDelete: string
     taskBlockComment: string
     taskAddPicture: string
+    taskTitle: string
+    filePath: string
 }
 
 const issuesData: IssuesData = {
     
+    taskTitle: 'Task 1',
     task1: 'Task 1',
     taskEdit: 'Task Edit',
     testTask: 'Test task',
@@ -21,8 +24,15 @@ const issuesData: IssuesData = {
     taskDelete: 'Task Delete',
     taskBlockComment: 'Task Block Comment',
     taskAddPicture: 'Task add picrure',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+const createIssue: IssuesData = {
+
+    taskTitle: 'Task 1',
 
 }
+
 
 export {
     IssuesData, issuesData

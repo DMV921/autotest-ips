@@ -1,7 +1,7 @@
 
 import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential2'
 //import { EmailsSettingsPage } from '../page-object/EmailsSettings.page'
-import { LoginPage } from '../../../lesson 5/login/page-object/Login.page'
+//import { LoginPage } from '../../../lesson 5/login/page-object/Login.page'
 //import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
 import { NewRepositoryPage } from '../page-object/NewRespository.page'
 import { createRepositoryModel, RepositoryModel } from '../model/repository.model'
@@ -9,6 +9,9 @@ import { repositoryData } from '../data/repository.data'
 import { IssuesPage } from '../page-object/Issues.page'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
 import { issuesData } from '../data/issues.data'
+import { userData } from '../../login/data/user.data'
+import { UserModel, createUserModel } from '../../login/model/user.model'
+import { LoginPage } from '../../login/page-object/Login.page'
 
 const nameField = 'Дмитрий'
 const bioField: string = 'Информация обо мне.'
@@ -22,6 +25,7 @@ const filePath = 'src/files/placeimg_640_480_any.jpg'
 const filePathBigSize = 'src/files/photo_visokogo_razresheniya.jpg'
 const repository: RepositoryModel = createRepositoryModel(repositoryData)
 const issues: IssuesModel = createIssuesModel(issuesData)
+const user: UserModel = createUserModel(userData)
 const task1: string = 'Task 1'
 const taskEdit: string = 'Task Edit'
 const testTask: string = 'Test task'
@@ -31,9 +35,6 @@ const taskLabel1: string = 'Task Label 1'
 const taskDelete: string = 'Task Delete'
 const taskBlockComment: string = 'Task Block Comment'
 const taskAddPicture: string = 'Task add picrure'
-
-
-
 
 describe('Issues test', () => {
     let loginPage: LoginPage
@@ -57,7 +58,7 @@ issues.closeTask
         newRepositoryPage = new NewRepositoryPage(browser)
         issuesPage = new IssuesPage(browser)
         await loginPage.open()
-        await loginPage.login(LOGIN, PASSWORD)
+        await loginPage.login(user)
         // await newRepositoryPage.openCreateNewRepositoryPage()
         //     await newRepositoryPage.typeInRepositoryName(repository)
     })
@@ -73,14 +74,14 @@ issues.closeTask
     })
 
     it('Comment should be publish', async () => {
-        await issuesPage.createIssue(issue2)
+        
         await issuesPage.createCommentary(issues)
         expect(await issuesPage.checkCreateCommentary()).toEqual(issues.taskCommentary)
     })
 
     it('Task should be closed', async () => {
-        await issuesPage.createIssue(issues.task1)
-        await issuesPage.closeTask()
+        
+        await issuesPage.closeTask(issues)
         expect(await issuesPage.getCloseLabelCheck()).toEqual(true)
     })
 
@@ -88,58 +89,49 @@ issues.closeTask
 
 
     it('Task should be edited', async () => {
-        await issuesPage.createIssue(issue4)
+       
 
         await issuesPage.editTask(issues)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
 
         expect(await issuesPage.getUpdateCommentFrom()).toEqual(issues.testTask)
     })
-//for (let i  of Object.keys(object1)) {
- //   console.log(i)
-  
- //   console.log(object1[i])
- // }
+
 
     it('Task should be finded by label', async () => {
-        await issuesPage.createIssue(issue5)
+        
 
-        await issuesPage.findByLabel()
+        await issuesPage.findByLabel(issues)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
 
         expect(await issuesPage.getDocumentationLabelTask()).toEqual(true)
     })
 
     it('Task should be deleted', async () => {
-        await issuesPage.createIssue(issue6)
-        await issuesPage.deleteTask()
+        
+        await issuesPage.deleteTask(issues)
         expect(await issuesPage.getMessegeAboutSuccessDelete1()).toEqual(true)
     })
 
     it('Picture should be add in task', async () => {
-        await issuesPage.createIssue(issue7)
+       
 
         // await issuesPage.addPictureEditTask(testTask)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
-        await issuesPage.addPictureEditTask(filePath)
+        await issuesPage.addPictureEditTask(issues)
         expect(await issuesPage.getImage()).toEqual(true)
     })
 
 
 
     it('Commentary should be blocked', async () => {
-        await issuesPage.createIssue(issue8)
-        await issuesPage.blockCommentTask()
+        
+        await issuesPage.blockCommentTask(issues)
         await browser.reloadSession()
         await issuesPage.openIssuesPage()
         await issuesPage.openIssueUnlogin()
         expect(await issuesPage.getBlockLogo()).toEqual(true)
     })
-
-
-
-
-
 
 })
 

@@ -1,7 +1,7 @@
 import { IssuesData } from "../data/issues.data"
 
 export type IssuesModel = {
-    
+
     task1: string
     taskEdit: string
     testTask: string
@@ -11,10 +11,12 @@ export type IssuesModel = {
     taskDelete: string
     taskBlockComment: string
     taskAddPicture: string
+    filePath: string
 }
 
 export function createIssuesModel(data: IssuesData): IssuesModel {
-    return {  
+    return {
+        filePath: data.filePath,
         task1: data.task1,
         taskEdit: data.taskEdit,
         testTask: data.testTask,

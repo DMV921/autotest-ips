@@ -12,12 +12,13 @@ class IssuesPage {
         this.browser = browser
     }
     //Add pictute
-    public async addPictureEditTask(filePath: string): Promise<void> {
+    public async addPictureEditTask(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskAddPicture)
         // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
         // await this.showHiddenEdit(this.browser)
         await this.getEditButton().click()
-        const file: string = await this.browser.uploadFile(filePath)
+        const file: string = await this.browser.uploadFile(issues.filePath)
         await this.getInputFile().setValue(file)
         // await this.getEditField().setValue(testtask)
         await browser.pause(10000)
@@ -34,7 +35,9 @@ class IssuesPage {
 
     }
 
-    public async blockCommentTask(): Promise<void> {
+    public async blockCommentTask(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskBlockComment)
+
         await this.getLockConversation().click()
 
         await this.getSeletcReason().selectByIndex(1)
@@ -61,8 +64,8 @@ class IssuesPage {
     }
 
     //close task
-    public async closeTask(): Promise<void> {
-
+    public async closeTask(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.closeTask)
         await this.getCloseIssueButtony().click()
         await this.openIssuesPage()
 
@@ -76,6 +79,7 @@ class IssuesPage {
     }
     //commentary
     public async createCommentary(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskCommentary)
         await this.getCommentaryField().setValue(issues.taskCommentary)
         await this.getCommentButton().click()
     }
@@ -90,7 +94,8 @@ class IssuesPage {
         await this.getSubmitNewIssueButton().click()
     }
 
-    public async deleteTask(): Promise<void> {
+    public async deleteTask(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskDelete)
         await this.getDeleteButton().click()
 
 
@@ -103,6 +108,7 @@ class IssuesPage {
 
     //commentaryowner
     public async editTask(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskEdit)
         // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
         // await this.showHiddenEdit(this.browser)
@@ -118,7 +124,8 @@ class IssuesPage {
     }
 
     //find label
-    public async findByLabel(): Promise<void> {
+    public async findByLabel(issues: IssuesModel): Promise<void> {
+        await this.createIssue(issues.taskLabel1)
         await this.getLabelsButton().click()
         await this.getDocumentationButton().click()
         await this.getLabelsButton().click()
@@ -333,7 +340,6 @@ class IssuesPage {
     private getlabelListDocumentation(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//div[normalize-space()="documentation"]')
     }
-
 
 }
 

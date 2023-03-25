@@ -9,16 +9,9 @@ class NewRepositoryPage {
         this.browser = browser
     }
 
-
-
-
-
     public async openCreateNewRepositoryPage(): Promise<void> {
         await this.browser.url(this.url)
     }
-
-   
-
 
     public async typeInRepositoryName(repositoy: RepositoryModel): Promise<void> {
         await this.getRepositoryNameField().waitForDisplayed({
@@ -39,7 +32,6 @@ class NewRepositoryPage {
     private getRepositoryNameField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="repository_name"]')
     }
-
 
 }
 
