@@ -50,7 +50,7 @@ describe('Issues test', () => {
  let issue6 =Object.values(issues)[6]
  let issue7 =Object.values(issues)[7]
  let issue8 =Object.values(issues)[8]
-
+issues.closeTask
 
     before(async () => {
         loginPage = new LoginPage(browser)
@@ -79,7 +79,7 @@ describe('Issues test', () => {
     })
 
     it('Task should be closed', async () => {
-        await issuesPage.createIssue(issue3)
+        await issuesPage.createIssue(issues.task1)
         await issuesPage.closeTask()
         expect(await issuesPage.getCloseLabelCheck()).toEqual(true)
     })

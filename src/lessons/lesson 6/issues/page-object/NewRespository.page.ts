@@ -11,9 +11,7 @@ class NewRepositoryPage {
 
 
 
-    public getUserPronouns(): Promise<string> {
-        return this.getPronouns().getValue()
-    }
+
 
     public async openCreateNewRepositoryPage(): Promise<void> {
         await this.browser.url(this.url)
@@ -34,17 +32,12 @@ class NewRepositoryPage {
         await this.getCreateRepositoryButton().click()
     }
 
-
-
-
-
+    private getCreateRepositoryButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="new_repository"]/div[5]/button')
+    }
 
     private getRepositoryNameField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="repository_name"]')
-    }
-
-    private getCreateRepositoryButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="new_repository"]/div[5]/button')
     }
 
 

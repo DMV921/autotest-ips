@@ -1,9 +1,19 @@
 
-import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential2'
+//import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential2'
 import { LoginPage } from '../page-object/Login.page'
 import { MainPage } from "../../profile/page-object/Main.page"
-const badEmail: string = 'fefefe'
-const badPassword: string = '1'
+import { createUserModel, UserModel } from '../model/user.model'
+import { userData, userDataWithBadEmail, userDataWithBadPassword } from '../data/user.data'
+
+
+const user: UserModel = createUserModel(userData)
+const badUserEmail: UserModel = createUserModel(userDataWithBadEmail)
+const badUserPassword: UserModel = createUserModel(userDataWithBadPassword)
+
+
+//const password = Object.values(user)[1]
+//const login = Object.values(user)[0]
+//const email = Object.values(user)[2]
 
 describe('Login from', () => {
     let loginPage: LoginPage
@@ -17,24 +27,30 @@ describe('Login from', () => {
     })
 
     it('User will login using login', async () => {
-        await loginPage.login(LOGIN, PASSWORD)
+        await loginPage.login(user)
         await mainPage.openUserMenu()
-        expect(await mainPage.getUserLoginText()).toEqual(LOGIN)
+        expect(await mainPage.getUserLoginText()).toEqual(user.login)
     })
 
     it('User will login using email', async () => {
-        await loginPage.login(EMAIL, PASSWORD)
+        await loginPage.setValueUsernameField(user.email)
+        await loginPage.setValuePasswordField(user.password)
+        await loginPage.clickLoginButton()
         await mainPage.openUserMenu()
-        expect(await mainPage.getUserLoginText()).toEqual(LOGIN)
+        expect(await mainPage.getUserLoginText()).toEqual(user.login)
     })
 
     it('Error message should be displayed by login with wrong email', async () => {
-        await loginPage.login(badEmail, PASSWORD) 
+        await loginPage.setValueUsernameField(badUserEmail.email)
+        await loginPage.setValuePasswordField(user.password)
+        await loginPage.clickLoginButton()
         expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
     })
 
     it('Error message should be displayed by login with wrong password', async () => {
-        await loginPage.login(LOGIN, badPassword)
+        await loginPage.setValueUsernameField(user.email)
+        await loginPage.setValuePasswordField(userDataWithBadPassword.password)
+        await loginPage.clickLoginButton()
         expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
     })
 

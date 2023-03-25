@@ -3,6 +3,8 @@ import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential'
 import { EmailsSettingsPage } from '../page-object/EmailsSettings.page'
 import { LoginPage } from '../../login/page-object/Login.page'
 import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
+import { userData } from '../../login/data/user.data'
+import { UserModel, createUserModel } from '../../login/model/user.model'
 
 const nameField = 'Дмитрий'
 const bioField: string = 'Информация обо мне.'
@@ -14,6 +16,8 @@ const longNameField: string = 'Lorem ipsum dolor sit amet, consectetuer adipisci
 const longBioField: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
 const filePath = 'src/files/placeimg_640_480_any.jpg'
 const filePathBigSize = 'src/files/photo_visokogo_razresheniya.jpg'
+const user: UserModel = createUserModel(userData)
+
 
 describe('Profile settings test', () => {
     let loginPage: LoginPage
@@ -25,7 +29,7 @@ describe('Profile settings test', () => {
         profileSettingsPage = new ProfileSettingsPage(browser)
         emailsSettingsPage = new EmailsSettingsPage(browser)
         await loginPage.open()
-        await loginPage.login(LOGIN, PASSWORD)
+        await loginPage.login(user)
     })
 
     beforeEach(async () => {

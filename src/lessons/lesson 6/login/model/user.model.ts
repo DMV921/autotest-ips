@@ -19,7 +19,7 @@ import { UserData } from "../data/user.data"
 
  function createUserModel(data: UserData): UserModel {
     return {  
-       
+
         login: data.login,
         password: data.password,
         email: data.email,
@@ -35,7 +35,6 @@ import { UserData } from "../data/user.data"
         filePathBigSize: data.filePathBigSize
     }
 }
-
 
 export {
     UserData, UserModel, createUserModel
