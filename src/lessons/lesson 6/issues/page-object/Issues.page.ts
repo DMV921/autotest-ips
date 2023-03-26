@@ -1,8 +1,6 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { RepositoryModel } from '../model/repository.model'
-
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-//import { issuesData } from '../data/issues.data'
 
 class IssuesPage {
     protected browser: WebdriverIO.Browser
@@ -14,36 +12,28 @@ class IssuesPage {
     //Add pictute
     public async addPictureEditTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
-        // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
-        // await this.showHiddenEdit(this.browser)
         await this.getEditButton().click()
         const file: string = await this.browser.uploadFile(issues.filePath)
         await this.getInputFile().setValue(file)
-        // await this.getEditField().setValue(testtask)
         await browser.pause(10000)
-
         await this.getUpdateComment().click()
-
         await this.getUpdateCommentField().waitForDisplayed({
-            timeoutMsg: 'Edit task was not displayed',
+            timeoutMsg: 'Comment field was not displayed',
         })
 
         await this.getIMG().waitForDisplayed({
-            timeoutMsg: 'Edit task was not displayed',
+            timeoutMsg: 'Image was not displayed',
         })
 
     }
 
     public async blockCommentTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
-
         await this.getLockConversation().click()
-
         await this.getSeletcReason().selectByIndex(1)
-
         await this.getLockConversationOnThis().waitForClickable({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Lock conversation button was not clickable',
         })
         await this.getLockConversationOnThis().click()
     }
@@ -68,13 +58,10 @@ class IssuesPage {
         await this.createIssue(issues.taskTitle)
         await this.getCloseIssueButtony().click()
         await this.openIssuesPage()
-
-
         await this.openIssuesPage()
         await this.getCloseIssuesList().click()
-
         await this.getCloseLabel().waitForDisplayed({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Label was not displayed',
         })
     }
     //commentary
@@ -87,7 +74,6 @@ class IssuesPage {
     public async createIssue(issues: string): Promise<void> {
         await this.clickNewIssueButton()
         await this.getIssueTitleField().setValue(issues)
-
         await this.getSubmitNewIssueButton().waitForClickable({
             timeoutMsg: 'Submit new issue button was not clickable',
         })
@@ -101,11 +87,8 @@ class IssuesPage {
     public async deleteTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
         await this.getDeleteButton().click()
-
-
-
         await this.confirmDeleteButton().waitForClickable({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Confirm delete button was not clickable',
         })
         await this.confirmDeleteButton().click()
     }
@@ -113,20 +96,14 @@ class IssuesPage {
     //commentaryowner
     public async editTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
-        // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
-        // await this.showHiddenEdit(this.browser)
         await this.getEditButton().click()
         await this.getEditField().setValue(issues.commentaryEditFiled)
         await this.getUpdateComment().click()
-
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Edit task was not displayed',
         })
-
-
     }
-
     //find label
     public async findByLabel(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
@@ -136,44 +113,36 @@ class IssuesPage {
         await this.openIssuesPage()
         await this.getlabelList().click()
         await this.getlabelListDocumentation().waitForDisplayed({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Label lisl was not displayed',
         })
         await this.getlabelListDocumentation().click()
         await this.getDocumentationLabelInList().waitForDisplayed({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Documentation label was not displayed',
         })
     }
 
     public getBlockLogo(): Promise<boolean> {
-
         return this.getOcticon().isDisplayed()
     }
     //delete
-
     public getCloseLabelCheck(): Promise<boolean> {
         return this.getCloseLabel().isDisplayed()
     }
 
     public getDocumentationLabelTask(): Promise<boolean> {
-
         return this.getDocumentationLabelInList().isDisplayed()
     }
-
     //block comment
-
     public getImage(): Promise<boolean> {
-
         return this.getIMG().isDisplayed()
     }
 
     public getMessegeAboutSuccessDelete1(): Promise<boolean> {
-
         return this.getMessegeAboutSuccessDelete().isDisplayed()
     }
 
     public getUpdateCommentFrom(): Promise<string> {
         return this.getUpdateCommentField().getText()
-
     }
 
     public async openCreateNewRepositoryPage(): Promise<void> {
@@ -181,14 +150,12 @@ class IssuesPage {
     }
 
     public async openIssueUnlogin(): Promise<void> {
-
         await this.getTaskBlockCommentUnlogin().waitForClickable({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Open issue button was not clickable',
         })
         await this.getTaskBlockCommentUnlogin().click()
-
         await this.getOcticon().waitForDisplayed({
-            timeoutMsg: 'Submit new issue button was not clickable',
+            timeoutMsg: 'Block comments label was not displayed',
         })
     }
 
@@ -207,10 +174,6 @@ class IssuesPage {
     private confirmDeleteButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//button[@name="verify_delete"]')
     }
-
-
-
-    //div[@class="TimelineItem-badge color-fg-on-emphasis color-bg-emphasis"]//*[name()="path"]
 
     private getCloseIssueButtony(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//span[@class="js-form-action-text"]')
@@ -252,7 +215,6 @@ class IssuesPage {
         return this.browser.$('*//span/a[@data-name="documentation"]')
     }
 
-    //*[@id="repo-content-pjax-container"]/div/div[2]/div[2]/a
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('*//details-menu/button[2]')
     }
@@ -269,17 +231,13 @@ class IssuesPage {
         return this.browser.$('//img[@alt="placeimg_640_480_any"]')
     }
 
-    //*[@id="issue_35"]/div/div[1]/span/svg
-
     private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('[type="file"]')
     }
-    //div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]
 
     private getIssueTitle(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')
     }
-    //*[@id="partial-new-comment-form-actions"]/div/div[1]/close-reason-selector/div/button
 
     private getIssueTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="issue_title"]')
