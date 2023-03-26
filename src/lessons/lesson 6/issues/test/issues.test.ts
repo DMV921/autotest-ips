@@ -8,7 +8,7 @@ import { createRepositoryModel, RepositoryModel } from '../model/repository.mode
 import { repositoryData } from '../data/repository.data'
 import { IssuesPage } from '../page-object/Issues.page'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { issuesData } from '../data/issues.data'
+import { addPictureIssueData, blockCommentaryIssueData, closeTaskIssueData, createIssueData, deleteIssueData, editTaskIssueData, findByLabelIssueData, publishCommentIssueData } from '../data/issues.data'
 import { userData } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 import { LoginPage } from '../../login/page-object/Login.page'
@@ -24,8 +24,17 @@ const longBioField: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscin
 const filePath = 'src/files/placeimg_640_480_any.jpg'
 const filePathBigSize = 'src/files/photo_visokogo_razresheniya.jpg'
 const repository: RepositoryModel = createRepositoryModel(repositoryData)
-const issues: IssuesModel = createIssuesModel(issuesData)
+//const issues: IssuesModel = createIssuesModel(issuesData)
 const user: UserModel = createUserModel(userData)
+const issueCreate: IssuesModel = createIssuesModel(createIssueData)
+const issuePublishComment: IssuesModel = createIssuesModel(publishCommentIssueData)
+const issueCloseTask: IssuesModel = createIssuesModel(closeTaskIssueData)
+const issueEditTask: IssuesModel = createIssuesModel(editTaskIssueData)
+const issueFindLabel: IssuesModel = createIssuesModel(findByLabelIssueData)
+const issueDelete: IssuesModel = createIssuesModel(deleteIssueData)
+const issueAddPicture: IssuesModel = createIssuesModel(addPictureIssueData)
+const issueBlockCommentary: IssuesModel = createIssuesModel(blockCommentaryIssueData)
+
 const task1: string = 'Task 1'
 const taskEdit: string = 'Task Edit'
 const testTask: string = 'Test task'
@@ -42,16 +51,9 @@ describe('Issues test', () => {
     // let emailsSettingsPage: EmailsSettingsPage
     let newRepositoryPage: NewRepositoryPage
     let issuesPage: IssuesPage
-    //
- let issue1 =Object.values(issues)[1]
- let issue2 =Object.values(issues)[2]
- let issue3 =Object.values(issues)[3]
- let issue4 =Object.values(issues)[4]
- let issue5 =Object.values(issues)[5]
- let issue6 =Object.values(issues)[6]
- let issue7 =Object.values(issues)[7]
- let issue8 =Object.values(issues)[8]
-issues.closeTask
+    
+ //let issue1 =Object.values(issues)[1]
+
 
     before(async () => {
         loginPage = new LoginPage(browser)
@@ -69,19 +71,19 @@ issues.closeTask
     })
 
     it('Task should be created', async () => {
-        await issuesPage.createIssue(issue1)
-        expect(await issuesPage.checkIssueTitle()).toEqual(issues.task1)
+        await issuesPage.createfirst(issueCreate)
+        expect(await issuesPage.checkIssueTitle()).toEqual(issueCreate.taskTitle)
     })
 
     it('Comment should be publish', async () => {
         
-        await issuesPage.createCommentary(issues)
-        expect(await issuesPage.checkCreateCommentary()).toEqual(issues.taskCommentary)
+        await issuesPage.createCommentary(issuePublishComment)
+        expect(await issuesPage.checkCreateCommentary()).toEqual(issuePublishComment.commentaryPublicField)
     })
 
     it('Task should be closed', async () => {
         
-        await issuesPage.closeTask(issues)
+        await issuesPage.closeTask(issueCloseTask)
         expect(await issuesPage.getCloseLabelCheck()).toEqual(true)
     })
 
@@ -91,17 +93,17 @@ issues.closeTask
     it('Task should be edited', async () => {
        
 
-        await issuesPage.editTask(issues)
+        await issuesPage.editTask(issueEditTask)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
 
-        expect(await issuesPage.getUpdateCommentFrom()).toEqual(issues.testTask)
+        expect(await issuesPage.getUpdateCommentFrom()).toEqual(issueEditTask.commentaryEditFiled)
     })
 
 
     it('Task should be finded by label', async () => {
         
 
-        await issuesPage.findByLabel(issues)
+        await issuesPage.findByLabel(issueFindLabel)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
 
         expect(await issuesPage.getDocumentationLabelTask()).toEqual(true)
@@ -109,7 +111,7 @@ issues.closeTask
 
     it('Task should be deleted', async () => {
         
-        await issuesPage.deleteTask(issues)
+        await issuesPage.deleteTask(issueDelete)
         expect(await issuesPage.getMessegeAboutSuccessDelete1()).toEqual(true)
     })
 
@@ -118,7 +120,7 @@ issues.closeTask
 
         // await issuesPage.addPictureEditTask(testTask)
         //expect(await issuesPage.checkIssueTitle()).toEqual(task1)
-        await issuesPage.addPictureEditTask(issues)
+        await issuesPage.addPictureEditTask(issueAddPicture)
         expect(await issuesPage.getImage()).toEqual(true)
     })
 
@@ -126,7 +128,7 @@ issues.closeTask
 
     it('Commentary should be blocked', async () => {
         
-        await issuesPage.blockCommentTask(issues)
+        await issuesPage.blockCommentTask(issueBlockCommentary)
         await browser.reloadSession()
         await issuesPage.openIssuesPage()
         await issuesPage.openIssueUnlogin()

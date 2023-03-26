@@ -2,7 +2,7 @@ import { ChainablePromiseElement } from 'webdriverio'
 import { RepositoryModel } from '../model/repository.model'
 
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { issuesData } from '../data/issues.data'
+//import { issuesData } from '../data/issues.data'
 
 class IssuesPage {
     protected browser: WebdriverIO.Browser
@@ -13,7 +13,7 @@ class IssuesPage {
     }
     //Add pictute
     public async addPictureEditTask(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskAddPicture)
+        await this.createIssue(issues.taskTitle)
         // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
         // await this.showHiddenEdit(this.browser)
@@ -36,7 +36,7 @@ class IssuesPage {
     }
 
     public async blockCommentTask(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskBlockComment)
+        await this.createIssue(issues.taskTitle)
 
         await this.getLockConversation().click()
 
@@ -65,7 +65,7 @@ class IssuesPage {
 
     //close task
     public async closeTask(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.closeTask)
+        await this.createIssue(issues.taskTitle)
         await this.getCloseIssueButtony().click()
         await this.openIssuesPage()
 
@@ -79,8 +79,8 @@ class IssuesPage {
     }
     //commentary
     public async createCommentary(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskCommentary)
-        await this.getCommentaryField().setValue(issues.taskCommentary)
+        await this.createIssue(issues.taskTitle)
+        await this.getCommentaryField().setValue(issues.commentaryPublicField)
         await this.getCommentButton().click()
     }
     //create одна задача с тем именем которое передали в задаче
@@ -94,8 +94,12 @@ class IssuesPage {
         await this.getSubmitNewIssueButton().click()
     }
 
+    public async createfirst(issue:IssuesModel): Promise<void> {
+        await this.createIssue(issue.taskTitle)
+    }
+
     public async deleteTask(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskDelete)
+        await this.createIssue(issues.taskTitle)
         await this.getDeleteButton().click()
 
 
@@ -108,12 +112,12 @@ class IssuesPage {
 
     //commentaryowner
     public async editTask(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskEdit)
+        await this.createIssue(issues.taskTitle)
         // await this.getTaskEdit().click()
         await this.getEditTaskMenu().click()
         // await this.showHiddenEdit(this.browser)
         await this.getEditButton().click()
-        await this.getEditField().setValue(issues.testTask)
+        await this.getEditField().setValue(issues.commentaryEditFiled)
         await this.getUpdateComment().click()
 
         await this.getUpdateCommentField().waitForDisplayed({
@@ -125,7 +129,7 @@ class IssuesPage {
 
     //find label
     public async findByLabel(issues: IssuesModel): Promise<void> {
-        await this.createIssue(issues.taskLabel1)
+        await this.createIssue(issues.taskTitle)
         await this.getLabelsButton().click()
         await this.getDocumentationButton().click()
         await this.getLabelsButton().click()

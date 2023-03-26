@@ -1,41 +1,82 @@
 type IssuesData = {
-    task1: string
-    taskEdit: string
-    testTask: string
-    taskCommentary: string
-    closeTask: string
-    taskLabel1: string
-    taskDelete: string
-    taskBlockComment: string
-    taskAddPicture: string
+
     taskTitle: string
+    commentaryEditFiled: string
+    commentaryPublicField: string
     filePath: string
 }
 
-const issuesData: IssuesData = {
-    
-    taskTitle: 'Task 1',
-    task1: 'Task 1',
-    taskEdit: 'Task Edit',
-    testTask: 'Test task',
-    taskCommentary: 'Commentary',
-    closeTask: 'Close Task',
-    taskLabel1: 'Task Label 1',
-    taskDelete: 'Task Delete',
-    taskBlockComment: 'Task Block Comment',
-    taskAddPicture: 'Task add picrure',
+const createIssueData: IssuesData = {
+
+    taskTitle: 'Task create',
+    commentaryEditFiled: 'Commentary',
+    commentaryPublicField: 'Commentary',
     filePath: 'src/files/placeimg_640_480_any.jpg'
 }
 
-const createIssue: IssuesData = {
 
-    taskTitle: 'Task 1',
+const publishCommentIssueData: IssuesData = {
 
+    taskTitle: 'Task publish comment',
+    commentaryEditFiled: 'Commentary',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+const closeTaskIssueData: IssuesData = {
+
+    taskTitle: ' Close task',
+    commentaryEditFiled: 'Commentary',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+const editTaskIssueData: IssuesData = {
+
+    taskTitle: 'Task edit field',
+    commentaryEditFiled: 'Commentary Edit',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
 }
 
 
+const findByLabelIssueData: IssuesData = {
+
+    taskTitle: 'Find by label',
+    commentaryEditFiled: 'Commentary',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+
+const deleteIssueData: IssuesData = {
+
+    taskTitle: 'Delete Issue',
+    commentaryEditFiled: 'Commentary Edit',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+const addPictureIssueData: IssuesData = {
+
+    taskTitle: 'Task add picture',
+    commentaryEditFiled: 'Commentary Edit',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+const blockCommentaryIssueData: IssuesData = {
+
+    taskTitle: 'Task Block Comment',
+    commentaryEditFiled: 'Commentary Edit',
+    commentaryPublicField: 'Commentary',
+    filePath: 'src/files/placeimg_640_480_any.jpg'
+}
+
+
+
 export {
-    IssuesData, issuesData
+    IssuesData, createIssueData, publishCommentIssueData, closeTaskIssueData, editTaskIssueData, findByLabelIssueData, deleteIssueData, addPictureIssueData, blockCommentaryIssueData
 }
 
 

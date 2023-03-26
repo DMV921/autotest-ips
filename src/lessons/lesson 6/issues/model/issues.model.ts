@@ -1,30 +1,22 @@
 import { IssuesData } from "../data/issues.data"
 
-export type IssuesModel = {
+ type IssuesModel = {
 
-    task1: string
-    taskEdit: string
-    testTask: string
-    taskCommentary: string
-    closeTask: string
-    taskLabel1: string
-    taskDelete: string
-    taskBlockComment: string
-    taskAddPicture: string
+    taskTitle: string
+    commentaryEditFiled: string
+    commentaryPublicField: string
     filePath: string
 }
 
-export function createIssuesModel(data: IssuesData): IssuesModel {
-    return {
-        filePath: data.filePath,
-        task1: data.task1,
-        taskEdit: data.taskEdit,
-        testTask: data.testTask,
-        taskCommentary: data.taskCommentary,
-        closeTask: data.closeTask,
-        taskLabel1: data.taskLabel1,
-        taskDelete: data.taskDelete,
-        taskBlockComment: data.taskBlockComment,
-        taskAddPicture: data.taskAddPicture
+ function createIssuesModel(data: IssuesData): IssuesModel {
+    return { 
+        taskTitle: data.taskTitle,
+        commentaryEditFiled: data.commentaryEditFiled,
+        commentaryPublicField: data.commentaryPublicField,
+        filePath: data.filePath
     }
+}
+
+export {
+    IssuesData, IssuesModel, createIssuesModel
 }
