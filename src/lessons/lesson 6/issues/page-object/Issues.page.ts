@@ -21,7 +21,6 @@ class IssuesPage {
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Comment field was not displayed',
         })
-
         await this.getIMG().waitForDisplayed({
             timeoutMsg: 'Image was not displayed',
         })
@@ -80,7 +79,7 @@ class IssuesPage {
         await this.getSubmitNewIssueButton().click()
     }
 
-    public async createfirst(issue:IssuesModel): Promise<void> {
+    public async createfirst(issue: IssuesModel): Promise<void> {
         await this.createIssue(issue.taskTitle)
     }
 
