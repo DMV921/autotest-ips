@@ -24,7 +24,6 @@ class IssuesPage {
         await this.getIMG().waitForDisplayed({
             timeoutMsg: 'Image was not displayed',
         })
-
     }
 
     public async blockCommentTask(issues: IssuesModel): Promise<void> {
@@ -79,7 +78,7 @@ class IssuesPage {
         await this.getSubmitNewIssueButton().click()
     }
 
-    public async createfirst(issue: IssuesModel): Promise<void> {
+    public async createFirst(issue: IssuesModel): Promise<void> {
         await this.createIssue(issue.taskTitle)
     }
 

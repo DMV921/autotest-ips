@@ -1,4 +1,5 @@
 import { ChainablePromiseElement } from 'webdriverio'
+import { filePathBigSize } from '../../login/data/user.data'
 import { UserModel } from '../../login/model/user.model'
 
 class ProfileSettingsPage {
@@ -120,7 +121,7 @@ class ProfileSettingsPage {
             timeoutMsg: 'File input field was not exist',
         })
         await this.showHiddenFileInput(this.browser)
-        const file: string = await this.browser.uploadFile(filePath.filePathBigSize)
+        const file: string = await this.browser.uploadFile(filePathBigSize)
         await this.getInputFile().setValue(file)
         await this.getMessegeTooBig().waitForDisplayed({
             timeoutMsg: 'The message "Please upload a picture smaller than 1 MB" was not displayed',

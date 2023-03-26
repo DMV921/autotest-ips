@@ -11,10 +11,8 @@ import { UserData } from "../data/user.data"
     pronouns: string
     customPronouns: string
     srcWithoutAvatar: string
-    longNameField: string
-    longBioField: string
     filePath: string
-    filePathBigSize: string
+    
 }
 
  function createUserModel(data: UserData): UserModel {
@@ -28,11 +26,9 @@ import { UserData } from "../data/user.data"
         emailList: data.emailList,
         pronouns: data.pronouns,
         customPronouns: data.customPronouns,
-        srcWithoutAvatar: data.srcWithoutAvatar,
-        longNameField: data.longNameField,
-        longBioField: data.longBioField,
+        srcWithoutAvatar: data.srcWithoutAvatar,  
         filePath: data.filePath,
-        filePathBigSize: data.filePathBigSize
+       
     }
 }
 

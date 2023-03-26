@@ -40,7 +40,7 @@ describe('Issues test', () => {
     })
 
     it('Task should be created', async () => {
-        await issuesPage.createfirst(issueCreate)
+        await issuesPage.createFirst(issueCreate)
         expect(await issuesPage.checkIssueTitle()).toEqual(issueCreate.taskTitle)
     })
 

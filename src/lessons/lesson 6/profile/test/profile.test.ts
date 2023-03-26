@@ -3,7 +3,7 @@ import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential'
 import { EmailsSettingsPage } from '../page-object/EmailsSettings.page'
 import { LoginPage } from '../../login/page-object/Login.page'
 import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
-import { userData } from '../../login/data/user.data'
+import { longBioField, longNameField, userData } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 
 const user: UserModel = createUserModel(userData)
@@ -54,14 +54,14 @@ describe('Profile settings test', () => {
 
     describe('Negative profile settings test', () => {
         it('A message  about the long name should be appear', async () => {
-            await profileSettingsPage.setValueNameField(user.longNameField)
+            await profileSettingsPage.setValueNameField(longNameField)
             await profileSettingsPage.clickUpdateProfileButton()
             expect(await profileSettingsPage.isDisplayedMessegeLongName()).toEqual(true)
             expect(await profileSettingsPage.getUserNameText()).toEqual(user.nameField)
         })
 
         it('User biography should be limited 160 characters', async () => {
-            await profileSettingsPage.setValueBioField(user.longBioField)
+            await profileSettingsPage.setValueBioField(longBioField)
             await profileSettingsPage.clickUpdateProfileButton()
             expect(await profileSettingsPage.getBioLength()).toHaveLength(160)
         })
