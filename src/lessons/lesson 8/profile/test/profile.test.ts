@@ -26,12 +26,12 @@ describe('Profile settings test', () => {
     })
 
     describe('Profile settings test', () => {
-        it.only('User name should be updated', async () => {
+        it('User name should be updated', async () => {
             await profileSettingsPage.updateNameField(user)
             expect(await profileSettingsPage.getUserNameText()).toEqual(user.nameField)
         })
 
-        it.only('User biography should be updated', async () => {
+        it('User biography should be updated', async () => {
             await profileSettingsPage.updateBioField(user)
             expect(await profileSettingsPage.getUserBioText()).toEqual(user.bioField)
         })

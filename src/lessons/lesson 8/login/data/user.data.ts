@@ -20,7 +20,7 @@ const userData: UserData = {
 
     login: `${LOGIN}`,
     password: `${PASSWORD}`,
-    email: 'ds8054296@gmail.com',
+    email: `${EMAIL}`,
     nameField: `nameField-${getRandomString(5)}-${getStringTimeStamp()}-${getRandomNumber(5)}`,
     bioField: `bioField-${getRandomString(5)}-${getStringTimeStamp()}-${getRandomNumber(5)}`,
     emailList: 'dmvltd1@gmail.com',
@@ -35,7 +35,7 @@ export const badPassword: string = '1'
 export const badEmail: string = 'fefefe'
 export const longNameField: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis do'
 export const longBioField: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
-export const filePathBigSize: string = '/src/files/photo_visokogo_razresheniya.jpg'
+export const filePathBigSize: string = 'src/files/photo_visokogo_razresheniya.jpg'
 
 export {
     UserData, userData

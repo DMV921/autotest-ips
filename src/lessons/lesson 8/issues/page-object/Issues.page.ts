@@ -2,12 +2,13 @@ import { ChainablePromiseElement } from 'webdriverio'
 import { RepositoryModel } from '../model/repository.model'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
 import { blockCommentaryIssueData } from '../data/issues.data'
+import { LOGIN } from '../../../../../credential2'
 
 const blockCommentaryIssue: IssuesModel = createIssuesModel(blockCommentaryIssueData)
 
 class IssuesPage {
     protected browser: WebdriverIO.Browser
-    protected url = 'https://github.com/dDAdada111/Test/issues'
+    protected url = `https://github.com/${LOGIN}/Test/issues`
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
