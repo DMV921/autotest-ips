@@ -1,3 +1,5 @@
+import { LOGIN, PASSWORD } from "../../../../../credential2"
+
 type UserData = {
 
     login: string
@@ -16,8 +18,8 @@ type UserData = {
 
 const userData: UserData = {
 
-    login: 'dDAdada111',
-    password: 'Gameplay92121',
+    login: `${LOGIN}`,
+    password: `${PASSWORD}`,
     email: 'ds8054296@gmail.com',
     nameField: 'Дмитрий',
     bioField: 'Информация обо мне.',

@@ -73,13 +73,9 @@ const blockCommentaryIssueData: IssuesData = {
     filePath: 'src/files/placeimg_640_480_any.jpg'
 }
 
-
-
 export {
     IssuesData, createIssueData, publishCommentIssueData, closeTaskIssueData, editTaskIssueData, findByLabelIssueData, deleteIssueData, addPictureIssueData, blockCommentaryIssueData
 }
-
-
 
 function getRandomString(a: number) {
     let chrs: string = 'abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789'
@@ -95,7 +91,6 @@ function getStringTimeStamp() {
     var date = Date.now().toString()
     return date
 }
-
 
 function getRandomNumber(a: number) {
     let chrs: string = '123456789'
