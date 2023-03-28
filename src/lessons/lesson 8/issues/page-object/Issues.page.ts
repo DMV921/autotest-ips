@@ -54,7 +54,6 @@ class IssuesPage {
         })
         await this.getNewIssueButton().click()
     }
-
     //close task
     public async closeTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
@@ -72,6 +71,11 @@ class IssuesPage {
         await this.getCommentaryField().setValue(issues.commentaryPublicField)
         await this.getCommentButton().click()
     }
+
+    public async createFirst(issue: IssuesModel): Promise<void> {
+        await this.createIssue(issue.taskTitle)
+    }
+
     //create одна задача с тем именем которое передали в задаче
     public async createIssue(issues: string): Promise<void> {
         await this.clickNewIssueButton()
@@ -82,10 +86,6 @@ class IssuesPage {
         await this.getSubmitNewIssueButton().click()
     }
 
-    public async createFirst(issue: IssuesModel): Promise<void> {
-        await this.createIssue(issue.taskTitle)
-    }
-
     public async deleteTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
         await this.getDeleteButton().click()
@@ -94,7 +94,6 @@ class IssuesPage {
         })
         await this.confirmDeleteButton().click()
     }
-
     //commentaryowner
     public async editTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)

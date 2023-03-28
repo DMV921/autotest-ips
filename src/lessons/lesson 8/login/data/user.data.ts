@@ -12,8 +12,6 @@ type UserData = {
     customPronouns: string
     srcWithoutAvatar: string
     filePath: string
-
-
 }
 
 const userData: UserData = {
@@ -28,7 +26,6 @@ const userData: UserData = {
     customPronouns: 'Custom',
     srcWithoutAvatar: 'https://avatars.githubusercontent.com/u/104264067?s=400&v=4',
     filePath: 'src/files/placeimg_640_480_any.jpg',
-
 }
 
 export const badPassword: string = '1'

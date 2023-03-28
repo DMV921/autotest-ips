@@ -1,4 +1,4 @@
-import { LOGIN, PASSWORD } from "../../../../../credential2"
+import { EMAIL, LOGIN, PASSWORD } from "../../../../../credential2"
 
 type UserData = {
 
@@ -13,14 +13,13 @@ type UserData = {
     srcWithoutAvatar: string
     filePath: string
    
-
 }
 
 const userData: UserData = {
 
     login: `${LOGIN}`,
     password: `${PASSWORD}`,
-    email: 'ds8054296@gmail.com',
+    email: `${EMAIL}`,
     nameField: 'Дмитрий',
     bioField: 'Информация обо мне.',
     emailList: 'dmvltd1@gmail.com',

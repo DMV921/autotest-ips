@@ -1,10 +1,11 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { RepositoryModel } from '../model/repository.model'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
+import { LOGIN } from '../../../../../credential2'
 
 class IssuesPage {
     protected browser: WebdriverIO.Browser
-    protected url = 'https://github.com/dDAdada111/Test/issues'
+    protected url = `https://github.com/${LOGIN}/Test/issues`
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
@@ -50,7 +51,6 @@ class IssuesPage {
         })
         await this.getNewIssueButton().click()
     }
-
     //close task
     public async closeTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
@@ -90,7 +90,6 @@ class IssuesPage {
         })
         await this.confirmDeleteButton().click()
     }
-
     //commentaryowner
     public async editTask(issues: IssuesModel): Promise<void> {
         await this.createIssue(issues.taskTitle)
