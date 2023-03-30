@@ -1,24 +1,24 @@
-import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential2'
 import { NewRepositoryPage } from '../page-object/NewRespository.page'
 import { createRepositoryModel, RepositoryModel } from '../model/repository.model'
 import { repositoryData } from '../data/repository.data'
 import { IssuesPage } from '../page-object/Issues.page'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { addPictureIssueData, blockCommentaryIssueData, closeTaskIssueData, createIssueData, deleteIssueData, editTaskIssueData, findByLabelIssueData, publishCommentIssueData } from '../data/issues.data'
+import { createIssuesData, mask } from '../data/issues.data'
 import { userData } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 import { LoginPage } from '../../login/page-object/Login.page'
 
 const repository: RepositoryModel = createRepositoryModel(repositoryData)
 const user: UserModel = createUserModel(userData)
-const issueCreate: IssuesModel = createIssuesModel(createIssueData)
-const issuePublishComment: IssuesModel = createIssuesModel(publishCommentIssueData)
-const issueCloseTask: IssuesModel = createIssuesModel(closeTaskIssueData)
-const issueEditTask: IssuesModel = createIssuesModel(editTaskIssueData)
-const issueFindLabel: IssuesModel = createIssuesModel(findByLabelIssueData)
-const issueDelete: IssuesModel = createIssuesModel(deleteIssueData)
-const issueAddPicture: IssuesModel = createIssuesModel(addPictureIssueData)
-const issueBlockCommentary: IssuesModel = createIssuesModel(blockCommentaryIssueData)
+const issueCreate: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issuePublishComment: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueCloseTask: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueEditTask: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueFindLabel: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueDelete: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueAddPicture: IssuesModel = createIssuesModel(createIssuesData(mask))
+const issueBlockCommentary: IssuesModel = createIssuesModel(createIssuesData(mask))
+const blockCommentaryIssue: IssuesModel = createIssuesModel(createIssuesData(mask))
 
 describe('Issues test', () => {
     let loginPage: LoginPage
@@ -36,7 +36,7 @@ describe('Issues test', () => {
     })
 
     beforeEach(async () => {
-        await issuesPage.openIssuesPage()
+        await issuesPage.openIssuesPage()//переименовать в open()
     })
 
     it('Task should be created', async () => {
@@ -74,11 +74,11 @@ describe('Issues test', () => {
         expect(await issuesPage.getImage()).toEqual(true)
     })
 
-    it('Commentary should be blocked', async () => {
+    it.only('Commentary should be blocked', async () => {
         await issuesPage.blockCommentTask(issueBlockCommentary)
         await browser.reloadSession()
         await issuesPage.openIssuesPage()
-        await issuesPage.openIssueUnlogin()
+        await issuesPage.openIssueUnlogin(issueBlockCommentary)
         expect(await issuesPage.getBlockLogo()).toEqual(true)
     })
 })

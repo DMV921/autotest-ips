@@ -15,8 +15,8 @@ class LoginPage {
         })
         await this.getLoginButton().click()
     }
-
-    public errorMessegeisDisplayed(): Promise<boolean> {
+// isDisplayed
+    public isDisplayedErrorMessege(): Promise<boolean> {
        return this.getErrorMessege().isDisplayed()
     }
 

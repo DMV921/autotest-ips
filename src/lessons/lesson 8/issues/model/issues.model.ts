@@ -1,7 +1,6 @@
 import { IssuesData } from "../data/issues.data"
 
  type IssuesModel = {
-
     taskTitle: string
     commentaryEditFiled: string
     commentaryPublicField: string
@@ -10,13 +9,13 @@ import { IssuesData } from "../data/issues.data"
 
  function createIssuesModel(data: IssuesData): IssuesModel {
     return { 
-        taskTitle: data.taskTitle,
-        commentaryEditFiled: data.commentaryEditFiled,
+        taskTitle: data.taskTitle,// переименовать в title
+        commentaryEditFiled: data.commentaryEditFiled, //commentEditFiled
         commentaryPublicField: data.commentaryPublicField,
         filePath: data.filePath
     }
 }
 
-export {
-    IssuesData, IssuesModel, createIssuesModel
+export {// c новой сроки
+    IssuesData, IssuesModel, createIssuesModel //IssueData не должен экспортится здесь
 }

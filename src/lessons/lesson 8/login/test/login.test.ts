@@ -4,7 +4,7 @@ import { LoginPage } from '../page-object/Login.page'
 import { MainPage } from "../../profile/page-object/Main.page"
 import { createUserModel, UserModel } from '../model/user.model'
 import { userData } from '../data/user.data'
-import { badPassword, badEmail } from '../data/user.data'
+import { BAD_PASSWORD, BAD_EMAIL } from '../data/user.data'
 
 const user: UserModel = createUserModel(userData)
 
@@ -34,17 +34,17 @@ describe('Login from', () => {
     })
 
     it('Error message should be displayed by login with wrong email', async () => {
-        await loginPage.setValueUsernameField(badEmail)
+        await loginPage.setValueUsernameField(BAD_EMAIL)
         await loginPage.setValuePasswordField(user.password)
         await loginPage.clickLoginButton()
-        expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
+        expect(await loginPage.isDisplayedErrorMessege()).toEqual(true)
     })
 
     it('Error message should be displayed by login with wrong password', async () => {
         await loginPage.setValueUsernameField(user.email)
-        await loginPage.setValuePasswordField(badPassword)
+        await loginPage.setValuePasswordField(BAD_PASSWORD)
         await loginPage.clickLoginButton()
-        expect(await loginPage.errorMessegeisDisplayed()).toEqual(true)
+        expect(await loginPage.isDisplayedErrorMessege()).toEqual(true)
     })
 
     afterEach(async () => {

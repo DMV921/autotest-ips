@@ -1,34 +1,26 @@
 import { UserData } from "../data/user.data"
-
- type UserModel = {
-    
+//убрать лишние поля переименовать и переносы
+ type UserModel = {   
     login: string
     password: string
     email: string
-    nameField: string
-    bioField: string
-    emailList: string
+    name: string
+    bio: string
     pronouns: string
-    customPronouns: string
     srcWithoutAvatar: string
-    filePath: string
-    
+    filePath: string   
 }
-
+//лишние переносы
  function createUserModel(data: UserData): UserModel {
     return {  
-
         login: data.login,
         password: data.password,
         email: data.email,
-        nameField: data.nameField,
-        bioField: data.bioField,
-        emailList: data.emailList,
+        name: data.name,
+        bio: data.bio,
         pronouns: data.pronouns,
-        customPronouns: data.customPronouns,
         srcWithoutAvatar: data.srcWithoutAvatar,  
-        filePath: data.filePath,
-       
+        filePath: data.filePath,      
     }
 }
 

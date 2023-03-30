@@ -1,5 +1,5 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { filePathBigSize } from '../../login/data/user.data'
+import { CUSTOM_PRONOUNS, FILE_PATH_BIG_SIZE, PronounsType } from '../../login/data/user.data'
 import { UserModel } from '../../login/model/user.model'
 
 class ProfileSettingsPage {
@@ -9,14 +9,14 @@ class ProfileSettingsPage {
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
     }
-    
+
     public async clickUpdateProfileButton(): Promise<void> {
         await this.getUpdateProfileButton().waitForClickable({
             timeoutMsg: 'Update profile button was not clickable'
         })
         await this.getUpdateProfileButton().click()
     }
-  
+
     public getBioLength(): Promise<string> {
         return this.getBioField().getValue()
     }
@@ -24,7 +24,7 @@ class ProfileSettingsPage {
     public getCustomUserPronouns(): Promise<string> {
         return this.getPronounsCustom().getValue()
     }
-    
+
     public getNewAvatar(): Promise<string> {
         return this.getAvatarsrc().getAttribute('src')
     }
@@ -32,7 +32,7 @@ class ProfileSettingsPage {
     public getUserBioText(): Promise<string> {
         return this.getBioField().getValue()
     }
-    
+
     public getUserEmail(): Promise<string> {
         return this.getProfileEmailList().getValue()
     }
@@ -40,11 +40,11 @@ class ProfileSettingsPage {
     public getUserNameText(): Promise<string> {
         return this.getNameField().getValue()
     }
-    
+
     public getUserPronouns(): Promise<string> {
         return this.getPronouns().getValue()
     }
-    
+
     public isDisplayedMessegeLongName(): Promise<boolean> {
         return this.getMessegeLongName().isDisplayed()
     }
@@ -53,7 +53,8 @@ class ProfileSettingsPage {
         return this.getMessegeTooBig().isDisplayed()
     }
 
-    public async openProfilePage(): Promise<void> {
+    //упростить имя
+    public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
 
@@ -65,7 +66,7 @@ class ProfileSettingsPage {
     }
 
     public async updateBioField(userBio: UserModel): Promise<void> {
-        await this.setValueBioField(userBio.bioField)
+        await this.setValueBioField(userBio.bio)
         await this.clickUpdateProfileButton()
     }
 
@@ -75,16 +76,16 @@ class ProfileSettingsPage {
         })
         await this.getBioField().setValue(userBio)
     }
-    
+
     public async updateCustomPronounsList(userCustomPronouns: UserModel): Promise<void> {
         await this.getPronouns().waitForClickable({
             timeoutMsg: 'Pronouns list was not clickable',
         })
-        await this.getPronouns().selectByIndex(4)
-        await this.getPronounsCustom().setValue(userCustomPronouns.customPronouns)
+        await this.getPronounsElement(PronounsType.CUSTOM)
+        await this.getPronounsCustom().setValue(CUSTOM_PRONOUNS)
         await this.clickUpdateProfileButton()
     }
-    
+
     public async updateEmailList(): Promise<void> {
         await this.getProfileEmailList().waitForClickable({
             timeoutMsg: 'Email list was not clickable',
@@ -92,12 +93,12 @@ class ProfileSettingsPage {
         await this.getProfileEmailList().selectByIndex(1)
         await this.clickUpdateProfileButton()
     }
-//дописать функцию button click с wait
+    //дописать функцию button click с wait
     public async updateNameField(userName: UserModel): Promise<void> {
         await this.getNameField().waitForDisplayed({
             timeoutMsg: 'Name field was not displayed',
         })
-        await this.getNameField().setValue(userName.nameField)
+        await this.getNameField().setValue(userName.name)
         await this.clickUpdateProfileButton()
     }
 
@@ -108,20 +109,21 @@ class ProfileSettingsPage {
         await this.getNameField().setValue(userName)
     }
 
-    public async updatePronounsList(): Promise<void> {
+    public async updatePronounsList(pronouns: PronounsType): Promise<void> {
         await this.getPronouns().waitForClickable({
             timeoutMsg: 'Pronouns list was not clickable',
         })
-        await this.getPronouns().selectByIndex(1)
+        await this.getPronouns().click()
+        await this.getPronounsElement(pronouns).click()
         await this.clickUpdateProfileButton()
     }
-    
+
     public async uploadBigSizeFile(filePath: UserModel): Promise<void> {
         await this.getInputFile().waitForExist({
             timeoutMsg: 'File input field was not exist',
         })
         await this.showHiddenFileInput(this.browser)
-        const file: string = await this.browser.uploadFile(filePathBigSize)
+        const file: string = await this.browser.uploadFile(FILE_PATH_BIG_SIZE)
         await this.getInputFile().setValue(file)
         await this.getMessegeTooBig().waitForDisplayed({
             timeoutMsg: 'The message "Please upload a picture smaller than 1 MB" was not displayed',
@@ -176,6 +178,10 @@ class ProfileSettingsPage {
 
     private getPronouns(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="user_profile_pronouns_select"]')
+    }
+
+    private getPronounsElement(value: PronounsType): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`'//*[@id="user_profile_pronouns_select"]/option[@value="${value}"]'`)
     }
 
     private getPronounsCustom(): ChainablePromiseElement<WebdriverIO.Element> {

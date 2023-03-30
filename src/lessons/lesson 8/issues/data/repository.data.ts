@@ -5,4 +5,4 @@ export type RepositoryData = {
 export const repositoryData: RepositoryData = {
     repositoryname: 'Test'
 }
-
+//экспорт снести вниз

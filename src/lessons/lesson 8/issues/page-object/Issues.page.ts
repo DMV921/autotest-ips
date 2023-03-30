@@ -1,10 +1,6 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { RepositoryModel } from '../model/repository.model'
-import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { blockCommentaryIssueData } from '../data/issues.data'
+import { IssuesModel } from '../model/issues.model'
 import { LOGIN } from '../../../../../credential2'
-
-const blockCommentaryIssue: IssuesModel = createIssuesModel(blockCommentaryIssueData)
 
 class IssuesPage {
     protected browser: WebdriverIO.Browser
@@ -20,7 +16,7 @@ class IssuesPage {
         await this.getEditButton().click()
         const file: string = await this.browser.uploadFile(issues.filePath)
         await this.getInputFile().setValue(file)
-        await browser.pause(10000)
+        await browser.pause(8000)//Посмотреть можно ли избавиться от паузы, паузу нужно сделать меньше
         await this.getUpdateComment().click()
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Comment field was not displayed',
@@ -30,10 +26,10 @@ class IssuesPage {
         })
     }
 
-    public async blockCommentTask(issues: IssuesModel): Promise<void> {
+    public async blockCommentTask(issues: IssuesModel): Promise<void> { // таски переименовать в issue
         await this.createIssue(issues.taskTitle)
         await this.getLockConversation().click()
-        await this.getSeletcReason().selectByIndex(1)
+        await this.getSeletcReason().selectByIndex(1)// подумать над использованием enum
         await this.getLockConversationOnThis().waitForClickable({
             timeoutMsg: 'Lock conversation button was not clickable',
         })
@@ -61,9 +57,6 @@ class IssuesPage {
         await this.openIssuesPage()
         await this.openIssuesPage()
         await this.getCloseIssuesList().click()
-        await this.getCloseLabel().waitForDisplayed({
-            timeoutMsg: 'Label was not displayed',
-        })
     }
     //commentary
     public async createCommentary(issues: IssuesModel): Promise<void> {
@@ -103,7 +96,7 @@ class IssuesPage {
         await this.getUpdateComment().click()
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Edit task was not displayed',
-        })
+        })// убрать, посмотреть везде
     }
     //find label
     public async findByLabel(issues: IssuesModel): Promise<void> {
@@ -126,7 +119,10 @@ class IssuesPage {
         return this.getOcticon().isDisplayed()
     }
     //delete
-    public getCloseLabelCheck(): Promise<boolean> {
+    public async getCloseLabelCheck(): Promise<boolean> {
+        await this.getCloseLabel().waitForDisplayed({
+            timeoutMsg: 'Label was not displayed',
+        })
         return this.getCloseLabel().isDisplayed()
     }
 
@@ -150,11 +146,11 @@ class IssuesPage {
         await this.browser.url(this.url)
     }
 
-    public async openIssueUnlogin(): Promise<void> {
-        await this.getTaskBlockCommentUnlogin().waitForClickable({
+    public async openIssueUnlogin(issueModel: IssuesModel): Promise<void> {
+        await this.getTaskBlockCommentUnlogin(issueModel).waitForClickable({
             timeoutMsg: 'Open issue button was not clickable',
         })
-        await this.getTaskBlockCommentUnlogin().click()
+        await this.getTaskBlockCommentUnlogin(issueModel).click()
         await this.getOcticon().waitForDisplayed({
             timeoutMsg: 'Block comments label was not displayed',
         })
@@ -189,7 +185,7 @@ class IssuesPage {
     }
 
     private getCommentButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="partial-new-comment-form-actions"]/div/div[2]/button')
+        return this.browser.$('//*[@id="partial-new-comment-form-actions"]//*[@class="btn-primary btn"]')
     }
 
     private getCommentary(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -201,7 +197,7 @@ class IssuesPage {
     }
 
     private getCreateRepositoryButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="new_repository"]/div[5]/button')
+        return this.browser.$('//*[@id="new_repository"]/div[5]/button')//посмотреть другой xpath
     }
 
     private getDeleteButton(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -209,7 +205,7 @@ class IssuesPage {
     }
 
     private getDocumentationButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//div[normalize-space()="Improvements or additions to documentation"]')
+        return this.browser.$('//div[normalize-space()="Improvements or additions to documentation"]') //посмотреть другой xpath
     }
 
     private getDocumentationLabelInList(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -217,7 +213,7 @@ class IssuesPage {
     }
 
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//details-menu/button[2]')
+        return this.browser.$('*//details-menu/button[2]')//посмотреть другой xpath
     }
 
     private getEditField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -229,7 +225,7 @@ class IssuesPage {
     }
 
     private getIMG(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//img[@alt="placeimg_640_480_any"]')
+        return this.browser.$('//img[@alt="placeimg_640_480_any"]')//посмотреть другой xpath, то есть передавать имя в метод
     }
 
     private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -237,7 +233,7 @@ class IssuesPage {
     }
 
     private getIssueTitle(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')
+        return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')//посмотреть другой xpath
     }
 
     private getIssueTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -249,11 +245,11 @@ class IssuesPage {
     }
 
     private getLockConversation(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//strong[normalize-space()="Lock conversation"]')
+        return this.browser.$('//strong[normalize-space()="Lock conversation"]')//посмотреть другой xpath
     }
 
     private getLockConversationOnThis(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//button[normalize-space()="Lock conversation on this issue"]')
+        return this.browser.$('//button[normalize-space()="Lock conversation on this issue"]')//посмотреть другой xpath
     }
 
     private getMessegeAboutSuccessDelete(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -277,10 +273,10 @@ class IssuesPage {
     }
 
     private getSubmitNewIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/div[2]/button')
+        return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/div[2]/button')//посмотреть другой xpath
     }
 
-    private getTaskBlockCommentUnlogin(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getTaskBlockCommentUnlogin(blockCommentaryIssue: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$(`//a[text()="${blockCommentaryIssue.taskTitle}"]`)
     }
 
@@ -303,7 +299,6 @@ class IssuesPage {
     private getlabelListDocumentation(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//div[normalize-space()="documentation"]')
     }
-
 }
 
 export {
