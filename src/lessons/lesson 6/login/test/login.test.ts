@@ -21,6 +21,11 @@ describe('Login from', () => {
 
     it('User will login using login', async () => {
         await loginPage.login(user)
+        await browser.pause(60000)
+        await browser.pause(60000)
+        await browser.pause(60000)
+        await browser.pause(60000)
+        await browser.pause(60000)
         await mainPage.openUserMenu()
         expect(await mainPage.getUserLoginText()).toEqual(user.login)
     })

@@ -1,21 +1,21 @@
 import { IssuesData } from "../data/issues.data"
 
  type IssuesModel = {
-    taskTitle: string
-    commentaryEditFiled: string
-    commentaryPublicField: string
+    issueTitle: string
+    commentEditFiled: string
+    commentPublicField: string
     filePath: string
 }
 
  function createIssuesModel(data: IssuesData): IssuesModel {
     return { 
-        taskTitle: data.taskTitle,// переименовать в title
-        commentaryEditFiled: data.commentaryEditFiled, //commentEditFiled
-        commentaryPublicField: data.commentaryPublicField,
+        issueTitle: data.issueTitle,// переименовать в title
+        commentEditFiled: data.commentEditFiled, //commentEditFiled
+        commentPublicField: data.commentPublicField,
         filePath: data.filePath
     }
 }
 
 export {// c новой сроки
-    IssuesData, IssuesModel, createIssuesModel //IssueData не должен экспортится здесь
+    IssuesModel, createIssuesModel //IssueData не должен экспортится здесь
 }

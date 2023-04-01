@@ -8,9 +8,28 @@ import { createRepositoryModel, RepositoryModel } from '../model/repository.mode
 import { repositoryData } from '../data/repository.data'
 import { IssuesPage } from '../page-object/Issues.page'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { issuesData } from '../data/issues.data'
+import { createIssuesData, IssuesData, IssuesData, mask } from '../data/issues.data'
 
-const issues: IssuesModel = createIssuesModel(issuesData)
+const issues: IssuesModel = createIssuesModel(IssuesData)
+
+
+type Cat = {
+  issueCreate: IssuesModel,
+  issuePublishComment: IssuesModel,
+  issueCloseTask: IssuesModel
+}
+const cat: Cat = { issueCreate, issuePublishComment issueCloseTask }
+
+
+
+
+for (let cats:IssuesModel of Object.keys(cat)) {
+  
+  cats = createIssuesModel(createIssuesData(mask))
+}
+
+
+
 
 //for (let i  of Object.keys(issues)) {
   //  console.log(i)  
@@ -22,3 +41,7 @@ const issues: IssuesModel = createIssuesModel(issuesData)
   //let i = Object.keys(issues)[2]
   console.log(Object.keys(issues)[2])
   //console.log(Object.keys(issues))
+
+
+
+  //how make massive of object
