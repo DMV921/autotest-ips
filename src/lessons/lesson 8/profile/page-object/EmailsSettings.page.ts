@@ -16,7 +16,7 @@ class EmailsSettingsPage {
             await this.getCheckbox().click()
         }
     }
-    public async openEmailsSettingsPage(): Promise<void> {
+    public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
     private getCheckbox(): ChainablePromiseElement<WebdriverIO.Element> {

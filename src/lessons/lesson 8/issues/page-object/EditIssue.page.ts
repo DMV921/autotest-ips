@@ -25,7 +25,7 @@ class EditIssuePage {
 
     public async blockCommentIssue(reason: ReasonForLocking): Promise<void> {
         await this.getLockConversation().click()
-        await this.getSeletcReason().selectByVisibleText(reason)// подумать над использованием enum
+        await this.getSeletcReason().selectByVisibleText(reason)
         await this.getLockConversationOnThis().waitForClickable({
             timeoutMsg: 'Lock conversation button was not clickable',
         })
@@ -107,12 +107,12 @@ class EditIssuePage {
         return this.browser.$('//span[@class="js-form-action-text"]')
     }
 
-    private getCommentButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="partial-new-comment-form-actions"]//*[@class="btn-primary btn"]')
-    }
-
     private getComment(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//p[@dir="auto"]')
+    }
+
+    private getCommentButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="partial-new-comment-form-actions"]//*[@class="btn-primary btn"]')
     }
 
     private getCommentField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -183,5 +183,3 @@ class EditIssuePage {
 export {
     EditIssuePage,
 }
-
-//отдельные пейдж обж

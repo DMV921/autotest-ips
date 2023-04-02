@@ -37,13 +37,6 @@ class IssuesPage {
         return this.getDocumentationLabelInList().isDisplayed()
     }
 
-    public async openIssueUnlogin(issueModel: IssuesModel): Promise<void> {
-        await this.getIssueBlockCommentUnlogin(issueModel).waitForClickable({
-            timeoutMsg: 'Open issue button was not clickable',
-        })
-        await this.getIssueBlockCommentUnlogin(issueModel).click()
-    }
-
     public getMessegeAboutSuccessDelete1(): Promise<boolean> {
         return this.getMessegeAboutSuccessDelete().isDisplayed()
     }
@@ -52,16 +45,35 @@ class IssuesPage {
         await this.browser.url(this.url)
     }
 
-    private getNewIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//span[@class="d-none d-md-block"]')
+    public async openIssueUnlogin(issueModel: IssuesModel): Promise<void> {
+        await this.getIssueBlockCommentUnlogin(issueModel).waitForClickable({
+            timeoutMsg: 'Open issue button was not clickable',
+        })
+        await this.getIssueBlockCommentUnlogin(issueModel).click()
+    }
+
+    private getCloseIssuesList(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]')
     }
 
     private getCloseLabel(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//span[@aria-label="Closed issue"]//*[name()="svg"]')
     }
 
-    private getCloseIssuesList(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]')
+    private getDocumentationLabelInList(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('*//span/a[@data-name="documentation"]')
+    }
+
+    private getIssueBlockCommentUnlogin(blockCommentaryIssue: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//a[text()="${blockCommentaryIssue.issueTitle}"]`)
+    }
+
+    private getMessegeAboutSuccessDelete(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="js-flash-container"]/div/div/div')
+    }
+
+    private getNewIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//span[@class="d-none d-md-block"]')
     }
 
     private getlabelList(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -70,18 +82,6 @@ class IssuesPage {
 
     private getlabelListDocumentation(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//div[normalize-space()="documentation"]')
-    }
-
-    private getDocumentationLabelInList(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//span/a[@data-name="documentation"]')
-    }
-
-    private getMessegeAboutSuccessDelete(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="js-flash-container"]/div/div/div')
-    }
-
-    private getIssueBlockCommentUnlogin(blockCommentaryIssue: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$(`//a[text()="${blockCommentaryIssue.issueTitle}"]`)
     }
 }
 

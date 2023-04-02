@@ -18,7 +18,7 @@ class NewIssuePage {
         await this.getSubmitNewIssueButton().click()
     }
 
-    public async openNewIssuePage(): Promise<void> {
+    public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
 

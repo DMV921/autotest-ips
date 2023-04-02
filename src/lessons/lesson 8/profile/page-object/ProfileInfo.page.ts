@@ -13,7 +13,7 @@ class ProfileInfoPage {
         return this.getLoginName().getText()
     }
 
-    public async openProfileInfoPage(): Promise<void> {
+    public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
     private getLoginName(): ChainablePromiseElement<WebdriverIO.Element> {

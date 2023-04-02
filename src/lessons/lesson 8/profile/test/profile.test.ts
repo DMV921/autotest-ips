@@ -31,7 +31,7 @@ describe('Profile settings test', () => {
         it('User name should be updated', async () => {
             await profileSettingsPage.updateNameField(user)
             expect(await profileSettingsPage.getUserNameText()).toEqual(user.name)
-            await profileInfoPage.openProfileInfoPage()
+            await profileInfoPage.open()
             expect(await profileInfoPage.checkLoginName()).toEqual(user.name)
         })
 
@@ -81,7 +81,7 @@ describe('Profile settings test', () => {
 
     describe('Email of user', () => {
         before(async () => {
-            await emailsSettingsPage.openEmailsSettingsPage()
+            await emailsSettingsPage.open()
             await emailsSettingsPage.checkcheckBox()
         })
 

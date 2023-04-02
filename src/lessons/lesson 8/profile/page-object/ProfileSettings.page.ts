@@ -58,6 +58,20 @@ class ProfileSettingsPage {
         await this.browser.url(this.url)
     }
 
+    public async setValueBioField(userBio: string): Promise<void> {
+        await this.getBioField().waitForDisplayed({
+            timeoutMsg: 'Bio field was not displayed',
+        })
+        await this.getBioField().setValue(userBio)
+    }
+
+    public async setValueNameField(userName: string): Promise<void> {
+        await this.getNameField().waitForDisplayed({
+            timeoutMsg: 'Name field was not displayed',
+        })
+        await this.getNameField().setValue(userName)
+    }
+
     public async showHiddenFileInput(browser: WebdriverIO.Browser): Promise<void> {
         await browser.execute(() => {
             const htmlElement = document.querySelector('[type="file"]') as HTMLElement
@@ -70,11 +84,9 @@ class ProfileSettingsPage {
         await this.clickUpdateProfileButton()
     }
 
-    public async setValueBioField(userBio: string): Promise<void> {
-        await this.getBioField().waitForDisplayed({
-            timeoutMsg: 'Bio field was not displayed',
-        })
-        await this.getBioField().setValue(userBio)
+    public async updateCustomPronounsField(userCustomPronouns: string): Promise<void> {
+        await this.getPronounsCustom().setValue(userCustomPronouns)
+        await this.clickUpdateProfileButton()
     }
 
     public async updateEmailList(): Promise<void> {
@@ -90,18 +102,6 @@ class ProfileSettingsPage {
             timeoutMsg: 'Name field was not displayed',
         })
         await this.getNameField().setValue(userName.name)
-        await this.clickUpdateProfileButton()
-    }
-
-    public async setValueNameField(userName: string): Promise<void> {
-        await this.getNameField().waitForDisplayed({
-            timeoutMsg: 'Name field was not displayed',
-        })
-        await this.getNameField().setValue(userName)
-    }
-
-    public async updateCustomPronounsField(userCustomPronouns: string): Promise<void> {
-        await this.getPronounsCustom().setValue(userCustomPronouns)
         await this.clickUpdateProfileButton()
     }
 
@@ -174,12 +174,12 @@ class ProfileSettingsPage {
         return this.browser.$('//*[@id="user_profile_pronouns_select"]')
     }
 
-    private getPronounsElement(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$(`//*[@id="user_profile_pronouns_select"]`)
-    }
-
     private getPronounsCustom(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="user_profile_pronouns"]')
+    }
+
+    private getPronounsElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//*[@id="user_profile_pronouns_select"]`)
     }
 
     private getUpdateProfileButton(): ChainablePromiseElement<WebdriverIO.Element> {
