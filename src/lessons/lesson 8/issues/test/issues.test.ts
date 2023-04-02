@@ -1,6 +1,6 @@
 import { IssuesPage } from '../page-object/Issues.page'
 import { createIssuesModel, IssuesModel } from '../model/issues.model'
-import { createIssuesData, mask } from '../data/issues.data'
+import { createIssuesData, mask, ReasonForLocking } from '../data/issues.data'
 import { userData } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 import { LoginPage } from '../../login/page-object/Login.page'
@@ -83,7 +83,7 @@ describe('Issues test', () => {
     it('Comment should be blocked', async () => {
         await issuesPage.clickNewIssueButton()
         await newIssuePage.createIssue(issue)
-        await editIssuePage.blockCommentIssue(issue)
+        await editIssuePage.blockCommentIssue(ReasonForLocking.RESLOVED)
         await browser.reloadSession()
         await issuesPage.open()
         await issuesPage.openIssueUnlogin(issue)

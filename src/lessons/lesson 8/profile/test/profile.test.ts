@@ -1,9 +1,8 @@
 
-import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential'
 import { EmailsSettingsPage } from '../page-object/EmailsSettings.page'
 import { LoginPage } from '../../login/page-object/Login.page'
 import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
-import { LONG_BIO, LONG_NAME, userData, CUSTOM_PRONOUNS, PronounsType } from '../../login/data/user.data'
+import { LONG_BIO, LONG_NAME, userData, CUSTOM_PRONOUNS, PronounsType, SRC_WITHOUT_AVATAR } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 import { ProfileInfoPage } from '../page-object/ProfileInfo.page'
 
@@ -40,20 +39,23 @@ describe('Profile settings test', () => {
             await profileSettingsPage.updateBioField(user)
             expect(await profileSettingsPage.getUserBioText()).toEqual(user.bio)
         })
-        //переделать
-        it.only('User pronoun should be updated', async () => {
-            await profileSettingsPage.updatePronounsList(PronounsType.THEY)
-            expect(await profileSettingsPage.getUserPronouns()).toEqual(user.pronouns)
+    
+        it('User pronoun should be updated', async () => {
+            await profileSettingsPage.updatePronounsList(PronounsType.SHE)
+            await profileSettingsPage.clickUpdateProfileButton()
+            expect(await profileSettingsPage.getUserPronouns()).toEqual(PronounsType.SHE)
         })
 
         it('Custom user pronoun should be updated', async () => {
-            await profileSettingsPage.updateCustomPronounsList(user)
+            await profileSettingsPage.updatePronounsList(PronounsType.CUSTOM)
+            await profileSettingsPage.updateCustomPronounsField(CUSTOM_PRONOUNS)
+            await profileSettingsPage.clickUpdateProfileButton()
             expect(await profileSettingsPage.getCustomUserPronouns()).toEqual(CUSTOM_PRONOUNS)
         })
 
         it('Photo should be uploaded in profile', async () => {
             await profileSettingsPage.uploadFile(user)
-            expect(await profileSettingsPage.getNewAvatar()).not.toEqual(user.srcWithoutAvatar)
+            expect(await profileSettingsPage.getNewAvatar()).not.toEqual(SRC_WITHOUT_AVATAR)
         })
     })
 
@@ -72,7 +74,7 @@ describe('Profile settings test', () => {
         })
 
         it('The message "Please upload a picture smaller than 1 MB" should appear.', async () => {
-            await profileSettingsPage.uploadBigSizeFile(user)
+            await profileSettingsPage.uploadBigSizeFile()
             expect(await profileSettingsPage.isDisplayedMessegeTooBig()).toEqual(true)
         })
     })

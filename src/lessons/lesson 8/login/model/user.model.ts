@@ -1,5 +1,4 @@
 import { UserData } from "../data/user.data"
-//убрать лишние поля переименовать и переносы
  type UserModel = {   
     login: string
     password: string
@@ -7,10 +6,8 @@ import { UserData } from "../data/user.data"
     name: string
     bio: string
     pronouns: string
-    srcWithoutAvatar: string
     filePath: string   
 }
-//лишние переносы
  function createUserModel(data: UserData): UserModel {
     return {  
         login: data.login,
@@ -19,7 +16,6 @@ import { UserData } from "../data/user.data"
         name: data.name,
         bio: data.bio,
         pronouns: data.pronouns,
-        srcWithoutAvatar: data.srcWithoutAvatar,  
         filePath: data.filePath,      
     }
 }

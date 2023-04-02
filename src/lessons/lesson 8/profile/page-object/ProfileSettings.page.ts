@@ -1,6 +1,7 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { CUSTOM_PRONOUNS, FILE_PATH_BIG_SIZE, PronounsType } from '../../login/data/user.data'
+import { FILE_PATH_BIG_SIZE, PronounsType } from '../../login/data/user.data'
 import { UserModel } from '../../login/model/user.model'
+
 
 class ProfileSettingsPage {
     protected browser: WebdriverIO.Browser
@@ -53,7 +54,6 @@ class ProfileSettingsPage {
         return this.getMessegeTooBig().isDisplayed()
     }
 
-    //упростить имя
     public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
@@ -77,15 +77,6 @@ class ProfileSettingsPage {
         await this.getBioField().setValue(userBio)
     }
 
-    public async updateCustomPronounsList(userCustomPronouns: UserModel): Promise<void> {
-        await this.getPronouns().waitForClickable({
-            timeoutMsg: 'Pronouns list was not clickable',
-        })
-        await this.getPronounsElement(PronounsType.CUSTOM)
-        await this.getPronounsCustom().setValue(CUSTOM_PRONOUNS)
-        await this.clickUpdateProfileButton()
-    }
-
     public async updateEmailList(): Promise<void> {
         await this.getProfileEmailList().waitForClickable({
             timeoutMsg: 'Email list was not clickable',
@@ -93,7 +84,7 @@ class ProfileSettingsPage {
         await this.getProfileEmailList().selectByIndex(1)
         await this.clickUpdateProfileButton()
     }
-    //дописать функцию button click с wait
+
     public async updateNameField(userName: UserModel): Promise<void> {
         await this.getNameField().waitForDisplayed({
             timeoutMsg: 'Name field was not displayed',
@@ -109,16 +100,19 @@ class ProfileSettingsPage {
         await this.getNameField().setValue(userName)
     }
 
+    public async updateCustomPronounsField(userCustomPronouns: string): Promise<void> {
+        await this.getPronounsCustom().setValue(userCustomPronouns)
+        await this.clickUpdateProfileButton()
+    }
+
     public async updatePronounsList(pronouns: PronounsType): Promise<void> {
         await this.getPronouns().waitForClickable({
             timeoutMsg: 'Pronouns list was not clickable',
         })
-        await this.getPronouns().click()
-        await this.getPronounsElement(pronouns).click()
-        await this.clickUpdateProfileButton()
+        await this.getPronounsElement().selectByVisibleText(pronouns)
     }
 
-    public async uploadBigSizeFile(filePath: UserModel): Promise<void> {
+    public async uploadBigSizeFile(): Promise<void> {
         await this.getInputFile().waitForExist({
             timeoutMsg: 'File input field was not exist',
         })
@@ -145,7 +139,7 @@ class ProfileSettingsPage {
     }
 
     private getAvatarsrc(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/div/details/summary/img')
+        return this.browser.$('//*[@class="avatar rounded-2 avatar-user"]')
     }
 
     private getBioField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -157,7 +151,7 @@ class ProfileSettingsPage {
     }
 
     private getInputFileSetButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="avatar-crop-form"]/div[2]/button/span')
+        return this.browser.$('//*[@class="Box-footer"]//*[@class="Button-content"]')
     }
 
     private getMessegeLongName(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -165,7 +159,7 @@ class ProfileSettingsPage {
     }
 
     private getMessegeTooBig(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/form/file-attachment/div/div[2]')
+        return this.browser.$('//*[@class="upload-state color-fg-danger too-big"]')
     }
 
     private getNameField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -180,8 +174,8 @@ class ProfileSettingsPage {
         return this.browser.$('//*[@id="user_profile_pronouns_select"]')
     }
 
-    private getPronounsElement(value: PronounsType): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$(`'//*[@id="user_profile_pronouns_select"]/option[@value="${value}"]'`)
+    private getPronounsElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//*[@id="user_profile_pronouns_select"]`)
     }
 
     private getPronounsCustom(): ChainablePromiseElement<WebdriverIO.Element> {

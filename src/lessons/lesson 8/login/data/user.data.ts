@@ -7,7 +7,6 @@ type UserData = {
     name: string
     bio: string
     pronouns: PronounsType
-    srcWithoutAvatar: string
     filePath: string
 }
 enum PronounsType {
@@ -23,10 +22,10 @@ const userData: UserData = {
     name: `nameField-${getRandomString(5)}-${getStringTimeStamp()}-${getRandomNumber(5)}`,
     bio: `bioField-${getRandomString(5)}-${getStringTimeStamp()}-${getRandomNumber(5)}`,
     pronouns: PronounsType.HE,
-    srcWithoutAvatar: 'https://avatars.githubusercontent.com/u/104264067?s=400&v=4',
     filePath: 'src/files/placeimg_640_480_any.jpg',
 }
 
+const SRC_WITHOUT_AVATAR: string = 'https://avatars.githubusercontent.com/u/104264067?s=400&v=4'
 const BAD_PASSWORD: string = '1'
 const BAD_EMAIL: string = 'fefefe'
 const LONG_NAME: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis do'
@@ -40,7 +39,7 @@ export {
 function getRandomString(a: number): string {
     let chrs: string = 'abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789'
     let str: string = ''
-    for (var i = 0; i < a; i++) {
+    for (let i = 0; i < a; i++) {
         let pos: number = Math.floor(Math.random() * chrs.length)
         str += chrs.substring(pos, pos + 1)
     }
@@ -55,7 +54,7 @@ function getStringTimeStamp(): string {
 function getRandomNumber(a: number): string {
     let chrs: string = '123456789'
     let str: string = ''
-    for (var i = 0; i < a; i++) {
+    for (let i = 0; i < a; i++) {
         let pos: number = Math.floor(Math.random() * chrs.length)
         str += chrs.substring(pos, pos + 1)
     }
@@ -69,5 +68,6 @@ export {
     LONG_NAME,
     LONG_BIO,
     FILE_PATH_BIG_SIZE,
-    CUSTOM_PRONOUNS
+    CUSTOM_PRONOUNS,
+    SRC_WITHOUT_AVATAR
 }

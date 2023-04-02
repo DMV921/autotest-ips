@@ -34,5 +34,3 @@ class NewIssuePage {
 export {
     NewIssuePage,
 }
-
-//отдельные пейдж обж

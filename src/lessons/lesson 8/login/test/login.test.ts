@@ -1,5 +1,4 @@
 
-//import { LOGIN, EMAIL, PASSWORD } from '../../../../../credential2'
 import { LoginPage } from '../page-object/Login.page'
 import { MainPage } from "../../profile/page-object/Main.page"
 import { createUserModel, UserModel } from '../model/user.model'

@@ -1,6 +1,7 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { IssuesModel } from '../model/issues.model'
 import { LOGIN } from '../../../../../credential'
+import { ReasonForLocking } from '../data/issues.data'
 
 class EditIssuePage {
     protected browser: WebdriverIO.Browser
@@ -20,14 +21,11 @@ class EditIssuePage {
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Comment field was not displayed',
         })
-        await this.getIMG().waitForDisplayed({
-            timeoutMsg: 'Image was not displayed',
-        })
     }
 
-    public async blockCommentIssue(issues: IssuesModel): Promise<void> { // таски переименовать в issue
+    public async blockCommentIssue(reason: ReasonForLocking): Promise<void> {
         await this.getLockConversation().click()
-        await this.getSeletcReason().selectByIndex(1)// подумать над использованием enum
+        await this.getSeletcReason().selectByVisibleText(reason)// подумать над использованием enum
         await this.getLockConversationOnThis().waitForClickable({
             timeoutMsg: 'Lock conversation button was not clickable',
         })
@@ -79,7 +77,10 @@ class EditIssuePage {
         return this.getOcticon().isDisplayed()
     }
 
-    public getImage(): Promise<boolean> {
+    public async getImage(): Promise<boolean> {
+        await this.getIMG().waitForDisplayed({
+            timeoutMsg: 'Image was not displayed',
+        })
         return this.getIMG().isDisplayed()
     }
 

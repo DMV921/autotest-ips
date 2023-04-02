@@ -6,7 +6,12 @@ type IssuesData = {
     commentPublicField: string
     filePath: string
 }
-
+enum ReasonForLocking {
+    OFF_TOPIC = 'Off-topic',
+    SPAM = 'Spam',
+    TOO_HEATED = 'Too heated',
+    RESLOVED = 'Resolved'  
+}
 function createIssuesData(mask: string): IssuesData {
     return {
         issueTitle: `${getRandomString(5)}-${getTimeStamp()}-${getRandomNumber(5)}`,
@@ -21,5 +26,6 @@ let mask: string = 'Issue_Test'
 export {
     createIssuesData,
     mask,
-    IssuesData
+    IssuesData,
+    ReasonForLocking
 }

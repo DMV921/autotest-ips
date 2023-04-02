@@ -88,5 +88,3 @@ class IssuesPage {
 export {
     IssuesPage,
 }
-
-//отдельные пейдж обж

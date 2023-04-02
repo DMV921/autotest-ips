@@ -16,6 +16,6 @@ import { IssuesData } from "../data/issues.data"
     }
 }
 
-export {// c новой сроки
-    IssuesModel, createIssuesModel //IssueData не должен экспортится здесь
+export {
+    IssuesModel, createIssuesModel
 }
