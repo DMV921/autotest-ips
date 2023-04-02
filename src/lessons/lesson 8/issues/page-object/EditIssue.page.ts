@@ -119,19 +119,19 @@ class EditIssuePage {
     }
 
     private getDeleteButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//strong[normalize-space()="Delete issue"]')
+        return this.browser.$('//*[@class="details-reset details-overlay details-overlay-dark js-delete-issue"]//strong')
     }
 
     private getDocumentationButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//div[normalize-space()="Improvements or additions to documentation"]') //посмотреть другой xpath убрать цифры
+        return this.browser.$('//*[@data-name="5294043367"]')
     }
 
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//details-menu/button[2]')//посмотреть другой xpath
+        return this.browser.$('*//details-menu/button[@class="dropdown-item btn-link js-comment-edit-button"]')
     }
 
     private getEditField(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//form/div/div[1]/file-attachment/div/text-expander/slash-command-expander/textarea')
+        return this.browser.$('*//form/div/div//*[@class="js-upload-markdown-image is-default"]//textarea')
     }
 
     private getEditIssueMenu(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -139,7 +139,7 @@ class EditIssuePage {
     }
 
     private getIMG(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//img[@alt="placeimg_640_480_any"]')//посмотреть другой xpath, то есть передавать имя в метод
+        return this.browser.$('//*[@class="edit-comment-hide"]//img')
     }
 
     private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -147,19 +147,19 @@ class EditIssuePage {
     }
 
     private getIssueTitle(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')//посмотреть другой xpath
+        return this.browser.$('//*[@id="partial-discussion-header"]//bdi')
     }
 
     private getLabelsButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//summary[normalize-space()="Labels"]')
+        return this.browser.$('//*[@id="labels-select-menu"]//*[@class="text-bold discussion-sidebar-heading discussion-sidebar-toggle hx_rsm-trigger"]')
     }
 
     private getLockConversation(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//strong[normalize-space()="Lock conversation"]')//посмотреть другой xpath
+        return this.browser.$('//*[@class="discussion-sidebar-item"]//*[@class="btn-link no-underline text-bold Link--primary lock-toggle-link"]')
     }
 
     private getLockConversationOnThis(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//button[normalize-space()="Lock conversation on this issue"]')//посмотреть другой xpath
+        return this.browser.$('//*[@class="Box-footer"]//*[@class="btn btn-block"]')
     }
 
     private getOcticon(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -171,7 +171,7 @@ class EditIssuePage {
     }
 
     private getUpdateComment(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//form/div/div[2]/div/button[2]/span/span')
+        return this.browser.$('//*[@class="d-flex flex-justify-end flex-items-center mx-2 mb-2 gap-1"]//*[@type="submit"]//*[@class="Button-content"]//*[@class="Button-label"]')
     }
 
     private getUpdateCommentField(): ChainablePromiseElement<WebdriverIO.Element> {

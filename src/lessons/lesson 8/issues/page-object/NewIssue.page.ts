@@ -27,7 +27,7 @@ class NewIssuePage {
     }
 
     private getSubmitNewIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/div[2]/button')//посмотреть другой xpath
+        return this.browser.$('//*[@id="new_issue"]//*[@class="flex-items-center flex-justify-end d-none d-md-flex mx-2 mb-2 px-0"]//*[@type="submit"]')
     }
 }
 
