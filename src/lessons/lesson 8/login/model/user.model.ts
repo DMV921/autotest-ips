@@ -1,4 +1,5 @@
 import { UserData } from "../data/user.data"
+
  type UserModel = {   
     login: string
     password: string
@@ -8,6 +9,7 @@ import { UserData } from "../data/user.data"
     pronouns: string
     filePath: string   
 }
+
  function createUserModel(data: UserData): UserModel {
     return {  
         login: data.login,
@@ -21,5 +23,7 @@ import { UserData } from "../data/user.data"
 }
 
 export {
-    UserData, UserModel, createUserModel
+    UserData, 
+    UserModel, 
+    createUserModel
 }

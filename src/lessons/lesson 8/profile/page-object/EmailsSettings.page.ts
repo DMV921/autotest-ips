@@ -7,7 +7,7 @@ class EmailsSettingsPage {
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
     }
-    //Keep my email addresses private
+ 
     public async checkcheckBox(): Promise<void> {
         if (await this.getCheckbox().isSelected()) {
             await this.getCheckbox().waitForClickable({

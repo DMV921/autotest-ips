@@ -16,9 +16,11 @@ class ProfileInfoPage {
     public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
+
     private getLoginName(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//span[@class="p-name vcard-fullname d-block overflow-hidden"]')
     }
+    
 }
 export {
     ProfileInfoPage,

@@ -10,9 +10,9 @@ import { EditIssuePage } from '../page-object/EditIssue.page'
 const user: UserModel = createUserModel(userData)
 
 describe('Issues test', () => {
+    let issue: IssuesModel
     let loginPage: LoginPage
     let issuesPage: IssuesPage
-    let issue: IssuesModel
     let newIssuePage: NewIssuePage
     let editIssuePage: EditIssuePage
 
@@ -33,7 +33,7 @@ describe('Issues test', () => {
     it('Issue should be created', async () => {
         await issuesPage.clickNewIssueButton()
         await newIssuePage.createIssue(issue)
-        expect(await editIssuePage.checkIssueTitle()).toEqual(issue.issueTitle)
+        expect(await editIssuePage.checkIssueTitle()).toEqual(issue.title)
     })
 
     it('Comment should be publish', async () => {
@@ -83,7 +83,7 @@ describe('Issues test', () => {
     it('Comment should be blocked', async () => {
         await issuesPage.clickNewIssueButton()
         await newIssuePage.createIssue(issue)
-        await editIssuePage.blockCommentIssue(ReasonForLocking.RESLOVED)
+        await editIssuePage.blockCommentIssue(ReasonForLocking.SPAM)
         await browser.reloadSession()
         await issuesPage.open()
         await issuesPage.openIssueUnlogin(issue)

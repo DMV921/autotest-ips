@@ -24,5 +24,7 @@ function getRandomNumber(a: number): string {
 }
 
 export {
-    getRandomString, getTimeStamp, getRandomNumber
+    getRandomString, 
+    getTimeStamp, 
+    getRandomNumber
 }

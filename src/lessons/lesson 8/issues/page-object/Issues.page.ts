@@ -65,7 +65,7 @@ class IssuesPage {
     }
 
     private getIssueBlockCommentUnlogin(blockCommentaryIssue: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$(`//a[text()="${blockCommentaryIssue.issueTitle}"]`)
+        return this.browser.$(`//a[text()="${blockCommentaryIssue.title}"]`)
     }
 
     private getMessegeAboutSuccessDelete(): ChainablePromiseElement<WebdriverIO.Element> {

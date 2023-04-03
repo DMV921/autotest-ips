@@ -86,7 +86,7 @@ describe('Profile settings test', () => {
         })
 
         it('Should be updated', async () => {
-            await profileSettingsPage.updateEmailList()
+            await profileSettingsPage.updateEmailList(user)
             expect(await profileSettingsPage.getUserEmail()).toEqual(user.email)
         })
     })

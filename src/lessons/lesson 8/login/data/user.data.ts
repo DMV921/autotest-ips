@@ -9,12 +9,14 @@ type UserData = {
     pronouns: PronounsType
     filePath: string
 }
+
 enum PronounsType {
     THEY = 'they/them',
     SHE = 'she/her',
     HE = 'he/him',
     CUSTOM = 'Custom'
 }
+
 const userData: UserData = {
     login: `${LOGIN}`,
     password: `${PASSWORD}`,
@@ -32,6 +34,7 @@ const LONG_NAME: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing e
 const LONG_BIO: string = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.'
 const FILE_PATH_BIG_SIZE: string = 'src/files/photo_visokogo_razresheniya.jpg'
 const CUSTOM_PRONOUNS: string = 'Custom'
+
 export {
     UserData, userData
 }

@@ -2,7 +2,6 @@ import { ChainablePromiseElement } from 'webdriverio'
 import { FILE_PATH_BIG_SIZE, PronounsType } from '../../login/data/user.data'
 import { UserModel } from '../../login/model/user.model'
 
-
 class ProfileSettingsPage {
     protected browser: WebdriverIO.Browser
     protected url = 'https://github.com/settings/profile'
@@ -89,11 +88,11 @@ class ProfileSettingsPage {
         await this.clickUpdateProfileButton()
     }
 
-    public async updateEmailList(): Promise<void> {
+    public async updateEmailList(userName: UserModel): Promise<void> {
         await this.getProfileEmailList().waitForClickable({
             timeoutMsg: 'Email list was not clickable',
         })
-        await this.getProfileEmailList().selectByIndex(1)
+        await this.getProfileEmailList().selectByVisibleText(userName.email)
         await this.clickUpdateProfileButton()
     }
 

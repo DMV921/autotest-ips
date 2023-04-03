@@ -16,7 +16,7 @@ class EditIssuePage {
         await this.getEditButton().click()
         const file: string = await this.browser.uploadFile(issues.filePath)
         await this.getInputFile().setValue(file)
-        await browser.pause(8000)//Посмотреть можно ли избавиться от паузы, паузу нужно сделать меньше
+        await browser.pause(7000)
         await this.getUpdateComment().click()
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Comment field was not displayed',

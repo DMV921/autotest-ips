@@ -11,7 +11,7 @@ class NewIssuePage {
     }
 
     public async createIssue(issue: IssuesModel): Promise<void> {
-        await this.getIssueTitleField().setValue(issue.issueTitle)
+        await this.getIssueTitleField().setValue(issue.title)
         await this.getSubmitNewIssueButton().waitForClickable({
             timeoutMsg: 'Submit new issue button was not clickable',
         })

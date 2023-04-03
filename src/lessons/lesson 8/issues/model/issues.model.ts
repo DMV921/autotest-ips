@@ -1,7 +1,7 @@
 import { IssuesData } from "../data/issues.data"
 
  type IssuesModel = {
-    issueTitle: string
+    title: string
     commentEditFiled: string
     commentPublicField: string
     filePath: string
@@ -9,8 +9,8 @@ import { IssuesData } from "../data/issues.data"
 
  function createIssuesModel(data: IssuesData): IssuesModel {
     return { 
-        issueTitle: data.issueTitle,// переименовать в title
-        commentEditFiled: data.commentEditFiled, //commentEditFiled
+        title: data.title,
+        commentEditFiled: data.commentEditFiled, 
         commentPublicField: data.commentPublicField,
         filePath: data.filePath
     }
