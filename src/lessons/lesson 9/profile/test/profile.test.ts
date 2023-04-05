@@ -5,6 +5,7 @@ import { ProfileSettingsPage } from "../page-object/ProfileSettings.page"
 import { LONG_BIO, LONG_NAME, userData, CUSTOM_PRONOUNS, PronounsType, SRC_WITHOUT_AVATAR } from '../../login/data/user.data'
 import { UserModel, createUserModel } from '../../login/model/user.model'
 import { ProfileInfoPage } from '../page-object/ProfileInfo.page'
+import { UserAPIService } from '../../common/api/api-service/UserAPIService'
 
 const user: UserModel = createUserModel(userData)
 
@@ -19,6 +20,7 @@ describe('Profile settings test', () => {
         profileSettingsPage = new ProfileSettingsPage(browser)
         emailsSettingsPage = new EmailsSettingsPage(browser)
         profileInfoPage = new ProfileInfoPage(browser)
+        await UserAPIService.deleteAuthenticatedUserData()
         await loginPage.open()
         await loginPage.login(user)
     })
@@ -38,11 +40,11 @@ describe('Profile settings test', () => {
         it('User biography should be updated', async () => {
             await profileSettingsPage.updateBioField(user)
             expect(await profileSettingsPage.getUserBioText()).toEqual(user.bio)
-        //доп проверка
+            await profileInfoPage.open()
+            expect(await profileInfoPage.checkBio()).toEqual(user.bio)
         })
     
         it('User pronoun should be "she"', async () => {
-            // user.pronouns
             await profileSettingsPage.updatePronounsList(user.pronouns)
             await profileSettingsPage.clickUpdateProfileButton()
             expect(await profileSettingsPage.getUserPronouns()).toEqual(user.pronouns)
@@ -51,9 +53,7 @@ describe('Profile settings test', () => {
         it('Custom user pronoun should be updated', async () => {
             user.pronouns = PronounsType.CUSTOM
             user.customPronounceValue = CUSTOM_PRONOUNS
-
             await profileSettingsPage.updatePronounsList(user.pronouns)
-            // 
             await profileSettingsPage.updateCustomPronounsField(user.customPronounceValue)
             await profileSettingsPage.clickUpdateProfileButton()
             expect(await profileSettingsPage.getCustomUserPronouns()).toEqual(user.customPronounceValue)
@@ -94,6 +94,10 @@ describe('Profile settings test', () => {
         it('Should be updated', async () => {
             await profileSettingsPage.updateEmailList(user)
             expect(await profileSettingsPage.getUserEmail()).toEqual(user.email)
+        })
+
+        after(async () => {
+            await UserAPIService.deleteAuthenticatedUserData()
         })
     })
 })

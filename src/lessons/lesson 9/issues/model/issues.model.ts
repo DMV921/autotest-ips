@@ -2,7 +2,6 @@ import { IssuesData } from "../data/issues.data"
 
  type IssuesModel = {
     title: string
-    //private
     commentPrivateFiled: string
     commentPublicField: string
     filePath: string

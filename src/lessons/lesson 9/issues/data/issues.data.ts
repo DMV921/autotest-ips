@@ -14,17 +14,15 @@ enum ReasonForLocking {
     RESLOVED = 'Resolved'  
 }
 
-// не используется маска
 function createIssuesData(mask: string): IssuesData {
     return {
-        title: `mask-${getRandomString(5)}-${getTimeStamp()}-${getRandomNumber(5)}`,
+        title: `${mask}-${getRandomString(5)}-${getTimeStamp()}-${getRandomNumber(5)}`,
         commentPrivateFiled: `${getRandomString(5)}`,
         commentPublicField: `${getRandomString(5)}`,
         filePath: 'src/files/placeimg_640_480_any.jpg'
     }
 }
 
-// const
 const MASK: string = 'Issue_Test'
 
 export {

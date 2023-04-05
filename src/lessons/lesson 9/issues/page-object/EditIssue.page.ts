@@ -12,21 +12,31 @@ class EditIssuePage {
     }
 
     public async addPictureEditIssue(issues: IssuesModel): Promise<void> {
-        // ожидать клиабельности
+        await this.getEditIssueMenu().waitForClickable({
+            timeoutMsg: 'Issue edit menu was not clickable',
+        })
         await this.getEditIssueMenu().click()
+        await this.getEditButton().waitForClickable({
+            timeoutMsg: 'Edit button was not clickable',
+        })
         await this.getEditButton().click()
         const file: string = await this.browser.uploadFile(issues.filePath)
         await this.getInputFile().setValue(file)
         await browser.pause(7000)
+        await this.getUpdateComment().waitForClickable({
+            timeoutMsg: 'Update comment button was not clickable',
+        })
         await this.getUpdateComment().click()   
     }
 
     public async blockCommentIssue(reason: ReasonForLocking): Promise<void> {
-        // кликабельность
+        await this.getLockConversation().waitForClickable({
+            timeoutMsg: 'Lock conversation button was not clickable',
+        })
         await this.getLockConversation().click()
         await this.getSeletcReason().selectByVisibleText(reason)
         await this.getLockConversationOnThis().waitForClickable({
-            timeoutMsg: 'Lock conversation button was not clickable',
+            timeoutMsg: '"Lock conversation on this" button was not clickable',
         })
         await this.getLockConversationOnThis().click()
     }
@@ -35,22 +45,29 @@ class EditIssuePage {
         return this.getComment().getText()
     }
 
-    //get
     public getIssueTitle(): Promise<string> {
         return this.getTitleIssue().getText()
     }
 
     public async closeIssue(): Promise<void> {
+        await this.getCloseIssueButton().waitForClickable({
+            timeoutMsg: 'Close issue button was not clickable',
+        })
         await this.getCloseIssueButton().click()
     }
 
     public async createComment(issues: IssuesModel): Promise<void> {
         await this.getCommentField().setValue(issues.commentPublicField)
-        // перед кликом проверить элемент на кликабельность
+        await this.getCommentButton().waitForClickable({
+            timeoutMsg: 'Comment button was not clickable',
+        })
         await this.getCommentButton().click()
     }
 
     public async deleteIssue(): Promise<void> {
+        await this.getDeleteButton().waitForClickable({
+            timeoutMsg: 'Delete button was not clickable',
+        })
         await this.getDeleteButton().click()
         await this.confirmDeleteButton().waitForClickable({
             timeoutMsg: 'Confirm delete button was not clickable',
@@ -59,15 +76,33 @@ class EditIssuePage {
     }
 
     public async editIssue(issues: IssuesModel): Promise<void> {
+        await this.getEditIssueMenu().waitForClickable({
+            timeoutMsg: 'Issue edit menu was not clickable',
+        })
         await this.getEditIssueMenu().click()
+        await this.getEditButton().waitForClickable({
+            timeoutMsg: 'Edit button was not clickable',
+        })
         await this.getEditButton().click()
         await this.getEditField().setValue(issues.commentPrivateFiled)
+        await this.getUpdateComment().waitForClickable({
+            timeoutMsg: 'Update comment button was not clickable',
+        })
         await this.getUpdateComment().click()
     }
 
     public async findByLabel(): Promise<void> {
+        await this.getLabelsButton().waitForClickable({
+            timeoutMsg: 'Labels list was not clickable',
+        })
         await this.getLabelsButton().click()
+        await this.getDocumentationButton().waitForClickable({
+            timeoutMsg: 'Documentation button was not clickable',
+        })
         await this.getDocumentationButton().click()
+        await this.getLabelsButton().waitForClickable({
+            timeoutMsg: 'Labels list was not clickable',
+        })
         await this.getLabelsButton().click()
     }
 
@@ -88,7 +123,6 @@ class EditIssuePage {
         return this.getIMG().isDisplayed()
     }
 
-    // get comment text
     public async getCommentText(): Promise<string> {
         await this.getUpdateCommentField().waitForDisplayed({
             timeoutMsg: 'Edit issue was not displayed',
@@ -108,7 +142,6 @@ class EditIssuePage {
         return this.browser.$('//button[@name="verify_delete"]')
     }
 
-    //buttony убрать
     private getCloseIssueButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//span[@class="js-form-action-text"]')
     }
@@ -126,8 +159,7 @@ class EditIssuePage {
     }
 
     private getDeleteButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        // xpath contains
-        return this.browser.$('//*[@class="details-reset details-overlay details-overlay-dark js-delete-issue"]//strong')
+        return this.browser.$('//*[contains(@class,"js-delete-issue")]//strong')
     }
 
     private getDocumentationButton(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -159,11 +191,11 @@ class EditIssuePage {
     }
 
     private getLabelsButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="labels-select-menu"]//*[@class="text-bold discussion-sidebar-heading discussion-sidebar-toggle hx_rsm-trigger"]')
+        return this.browser.$('//*[@id="labels-select-menu"]//*[contains(@class,"hx_rsm-trigger")]')
     }
 
     private getLockConversation(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@class="discussion-sidebar-item"]//*[@class="btn-link no-underline text-bold Link--primary lock-toggle-link"]')
+        return this.browser.$('//*[@class="discussion-sidebar-item"]//*[contains(@class,"lock-toggle-link")]')
     }
 
     private getLockConversationOnThis(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -171,7 +203,7 @@ class EditIssuePage {
     }
 
     private getOcticon(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//div[@class="TimelineItem-badge color-fg-on-emphasis color-bg-emphasis"]//*[name()="path"]')
+        return this.browser.$('//div[contains(@class,"color-bg-emphasis")]//*[name()="path"]')
     }
 
     private getSeletcReason(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -179,7 +211,7 @@ class EditIssuePage {
     }
 
     private getUpdateComment(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@class="d-flex flex-justify-end flex-items-center mx-2 mb-2 gap-1"]//*[@type="submit"]//*[@class="Button-content"]//*[@class="Button-label"]')
+        return this.browser.$('//*[contains(@class,"d-flex gap-1")]//*[@type="submit"]//*[@class="Button-label"]')
     }
 
     private getUpdateCommentField(): ChainablePromiseElement<WebdriverIO.Element> {

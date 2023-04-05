@@ -10,7 +10,6 @@ class IssuesPage {
         this.browser = browser
     }
 
-    // create
     public async createNewIssue(): Promise<void> {
         await this.getNewIssueButton().waitForClickable({
             timeoutMsg: 'New issue button was not clickable',
@@ -18,8 +17,10 @@ class IssuesPage {
         await this.getNewIssueButton().click()
     }
    
-    //gthtltkfnm vtnjl найти задачу в списке и проверить
     public async getCloseLabelCheck(): Promise<boolean> {
+        await this.getCloseIssuesList().waitForClickable({
+            timeoutMsg: 'Close issues list was not clickable',
+        })
         await this.getCloseIssuesList().click()
         await this.getCloseLabel().waitForDisplayed({
             timeoutMsg: 'Label was not displayed',
@@ -28,9 +29,15 @@ class IssuesPage {
     }
 
     public async getDocumentationLabelIssue(): Promise<boolean> {
+        await this.getlabelList().waitForClickable({
+            timeoutMsg: 'Labels list was not clickable',
+        })
         await this.getlabelList().click()
         await this.getlabelListDocumentation().waitForDisplayed({
             timeoutMsg: 'Label lisl was not displayed',
+        })
+        await this.getlabelListDocumentation().waitForClickable({
+            timeoutMsg: 'Documentation button was not clickable',
         })
         await this.getlabelListDocumentation().click()
         await this.getDocumentationLabelInList().waitForDisplayed({
@@ -39,7 +46,6 @@ class IssuesPage {
         return this.getDocumentationLabelInList().isDisplayed()
     }
 
-    //isDisplayed
     public isDisplayedMessegeAboutSuccessDelete(): Promise<boolean> {
         return this.getMessegeAboutSuccessDelete().isDisplayed()
     }
@@ -48,20 +54,16 @@ class IssuesPage {
         await this.browser.url(this.url)
     }
 
-    public async openIssueUnlogin(issueModel: IssuesModel): Promise<void> {
-        await this.getIssueBlockCommentUnlogin(issueModel).waitForClickable({
-            timeoutMsg: 'Open issue button was not clickable',
-        })
-        await this.getIssueBlockCommentUnlogin(issueModel).click()
-    }
-
     public async openIssue(issueModel: IssuesModel): Promise<void> {
-        await this.getIssueBlockCommentUnlogin(issueModel).waitForClickable({
+        await this.getIssueInList(issueModel).waitForClickable({
             timeoutMsg: 'Open issue button was not clickable',
         })
-        await this.getIssueBlockCommentUnlogin(issueModel).click()
+        await this.getIssueInList(issueModel).click()
     }
 
+    public  isExistIssue(issueModel: IssuesModel): Promise<boolean> {
+        return this.getIssueInList(issueModel).isExisting()
+    }
 
     private getCloseIssuesList(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]')
@@ -75,8 +77,8 @@ class IssuesPage {
         return this.browser.$('*//span/a[@data-name="documentation"]')
     }
 
-    private getIssueBlockCommentUnlogin(blockCommentaryIssue: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$(`//a[text()="${blockCommentaryIssue.title}"]`)
+    private getIssueInList(issueTitle: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//a[text()="${issueTitle.title}"]`)
     }
 
     private getMessegeAboutSuccessDelete(): ChainablePromiseElement<WebdriverIO.Element> {

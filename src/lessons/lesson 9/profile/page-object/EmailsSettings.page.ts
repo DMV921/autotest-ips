@@ -7,7 +7,6 @@ class EmailsSettingsPage {
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
     }
- 
     // название
     public async turnOffKeepMyEmailCheckbox(): Promise<void> {
         if (await this.getCheckbox().isSelected()) {
@@ -21,6 +20,7 @@ class EmailsSettingsPage {
     public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
+    
     private getCheckbox(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="toggle_visibility"]')
     }

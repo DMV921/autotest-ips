@@ -1,3 +1,4 @@
+// вынеси в common
 function getRandomString(a: number): string {
     let chrs: string = 'abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789'
     let str: string = ''
