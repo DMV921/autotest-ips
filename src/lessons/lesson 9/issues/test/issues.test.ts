@@ -49,6 +49,7 @@ describe('Issues test', () => {
     it('Issue should be closed', async () => {
         await editIssuePage.closeIssue()
         await issuesPage.open()
+        await issuesPage.openClosedIssuesList()
         expect(await issuesPage.getCloseLabelCheck()).toEqual(true)
         expect(await issuesPage.isExistIssue(issue)).toEqual(true)
     })
@@ -61,6 +62,7 @@ describe('Issues test', () => {
     it('Issue should be finded by label', async () => {
         await editIssuePage.findByLabel()
         await issuesPage.open()
+        await issuesPage.openLabelInList()
         expect(await issuesPage.getDocumentationLabelIssue()).toEqual(true)
         expect(await issuesPage.isExistIssue(issue)).toEqual(true)
     })

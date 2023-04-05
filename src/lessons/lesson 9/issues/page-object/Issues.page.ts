@@ -16,31 +16,22 @@ class IssuesPage {
         })
         await this.getNewIssueButton().click()
     }
-   
+
     public async getCloseLabelCheck(): Promise<boolean> {
-        await this.getCloseIssuesList().waitForClickable({
-            timeoutMsg: 'Close issues list was not clickable',
-        })
-        await this.getCloseIssuesList().click()
         await this.getCloseLabel().waitForDisplayed({
             timeoutMsg: 'Label was not displayed',
         })
         return this.getCloseLabel().isDisplayed()
     }
 
-    public async getDocumentationLabelIssue(): Promise<boolean> {
-        await this.getlabelList().waitForClickable({
-            timeoutMsg: 'Labels list was not clickable',
+    public async openClosedIssuesList(): Promise<void> {
+        await this.getCloseIssuesList().waitForClickable({
+            timeoutMsg: 'Close issues list was not clickable',
         })
-        await this.getlabelList().click()
-        await this.getlabelListDocumentation().waitForDisplayed({
-            timeoutMsg: 'Label lisl was not displayed',
-        })
-        await this.getlabelListDocumentation().waitForClickable({
-            timeoutMsg: 'Documentation button was not clickable',
-        })
-        await this.getlabelListDocumentation().click()
+        await this.getCloseIssuesList().click()
+    }
 
+    public async getDocumentationLabelIssue(): Promise<boolean> {
         await this.getResetFiltersButton().waitForDisplayed({
             timeoutMsg: 'Clear current search button was not displayed',
         })
@@ -54,6 +45,20 @@ class IssuesPage {
         return this.getMessegeAboutSuccessDelete().isDisplayed()
     }
 
+    public async openLabelInList(): Promise<void> {
+        await this.getlabelList().waitForClickable({
+            timeoutMsg: 'Labels list was not clickable',
+        })
+        await this.getlabelList().click()
+        await this.getlabelListDocumentation().waitForDisplayed({
+            timeoutMsg: 'Label lisl was not displayed',
+        })
+        await this.getlabelListDocumentation().waitForClickable({
+            timeoutMsg: 'Documentation button was not clickable',
+        })
+        await this.getlabelListDocumentation().click()
+    }
+
     public async open(): Promise<void> {
         await this.browser.url(this.url)
     }
@@ -65,7 +70,7 @@ class IssuesPage {
         await this.getIssueInList(issueModel).click()
     }
 
-    public  isExistIssue(issueModel: IssuesModel): Promise<boolean> {
+    public isExistIssue(issueModel: IssuesModel): Promise<boolean> {
         return this.getIssueInList(issueModel).isExisting()
     }
 
