@@ -167,7 +167,7 @@ class EditIssuePage {
     }
 
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('*//details-menu/button[@class="dropdown-item btn-link js-comment-edit-button"]')
+        return this.browser.$('*//details-menu/button[contains(@class,"js-comment-edit-button")]')
     }
 
     private getEditField(): ChainablePromiseElement<WebdriverIO.Element> {

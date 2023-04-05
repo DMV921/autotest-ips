@@ -1,6 +1,5 @@
 import { LOGIN } from '../../../../../../credential2'
 import { UpdateIssueRequest } from '../api-data-provider/IssueAPIDataProvider'
-import { UpdateUserRequest } from '../api-data-provider/UserAPIDataProvider'
 import { GitAPIProvider } from './GitAPIProvider'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 

@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method } from 'axios'
-import { MethodProperty } from '../../common/api/apiTypes'
 import { PERSONAL_TOKEN } from '../../../../../../credential2'
 
 class GitAPIProvider {

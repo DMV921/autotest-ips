@@ -40,6 +40,10 @@ class IssuesPage {
             timeoutMsg: 'Documentation button was not clickable',
         })
         await this.getlabelListDocumentation().click()
+
+        await this.getResetFiltersButton().waitForDisplayed({
+            timeoutMsg: 'Clear current search button was not displayed',
+        })
         await this.getDocumentationLabelInList().waitForDisplayed({
             timeoutMsg: 'Documentation label was not displayed',
         })
@@ -75,6 +79,10 @@ class IssuesPage {
 
     private getDocumentationLabelInList(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('*//span/a[@data-name="documentation"]')
+    }
+
+    private getResetFiltersButton(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//a[@class="issues-reset-query"]')
     }
 
     private getIssueInList(issueTitle: IssuesModel): ChainablePromiseElement<WebdriverIO.Element> {
