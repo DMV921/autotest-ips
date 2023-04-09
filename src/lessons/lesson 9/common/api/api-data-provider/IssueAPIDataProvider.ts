@@ -5,12 +5,11 @@ type UpdateIssueRequest = {
     body?: string,
     assignee?: string,
     milestone?: string,
-    labels?: Array<any>,
+    labels?: string[],
     assignees?: string,
 }
 
 class IssueAPIDataProvider {
-    
     public static getUpdatedIssueData(issue: IssuesModel): UpdateIssueRequest {
         return {
             title: issue.title,

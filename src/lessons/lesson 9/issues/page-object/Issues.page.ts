@@ -29,12 +29,12 @@ class IssuesPage {
             timeoutMsg: 'Close issues list was not clickable',
         })
         await this.getCloseIssuesList().click()
-    }
-
-    public async getDocumentationLabelIssue(): Promise<boolean> {
         await this.getResetFiltersButton().waitForDisplayed({
             timeoutMsg: 'Clear current search button was not displayed',
         })
+    }
+
+    public async getDocumentationLabelIssue(): Promise<boolean> {
         await this.getDocumentationLabelInList().waitForDisplayed({
             timeoutMsg: 'Documentation label was not displayed',
         })
@@ -75,7 +75,7 @@ class IssuesPage {
     }
 
     private getCloseIssuesList(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//div[@class="flex-auto d-none d-lg-block no-wrap"]//a[@class="btn-link "]')
+        return this.browser.$('//div[contains(@class,"d-lg-block no-wrap")]//a[@class="btn-link "]')
     }
 
     private getCloseLabel(): ChainablePromiseElement<WebdriverIO.Element> {

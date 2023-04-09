@@ -4,7 +4,6 @@ import { PERSONAL_TOKEN } from '../../../../../../credential2'
 class GitAPIProvider {
     protected headers: AxiosRequestHeaders = {}
     protected personalToken = PERSONAL_TOKEN
-
     constructor() {
         this.headers = {
             'Accept': 'application/vnd.github+json',
